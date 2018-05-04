@@ -1,0 +1,109 @@
+{% extends "layout.html" %}
+
+{% block flash_msg %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{category}} alert-dismissable" >
+                    <a  href="#" class="close" data-dismiss="alert" aria-label="close" >×</a>
+                    <center><strong> {{category}}</strong> <span>{{message}}</span></center>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+{% endblock %}
+
+{% block title %} 
+    {% if error %}
+        ERROR FOUND
+    {% else %}
+        COLLECTIONS
+    {% endif %}
+{% endblock %}
+
+
+{% block content %}
+    {% if error %}
+        <div class="row">
+            <div class="alert alert-danger"> 
+                <h3> {{error}}</h3>
+            </div>
+        </div>
+    {% else %}
+
+        {% if edit %}
+            <div class="row" align="center"> 
+                <h3> Create New Collection </h3>
+                <form action="{{ url_for('collectionsedit') }}" method="POST">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <th> Name </th> <th> Categories (comma separated)</th> 
+                            </tr>
+                            <tr>
+                                <td hidden > <input type="text" value="POST" name="method" /> </td>
+                                <td> <input type="text" name="name" required /> </td> 
+                                <td> <textarea type="text" name="categories"></textarea>  </td> 
+                                <td> <input type="submit" class="btn general mob-button" value="Create"/> </td> 
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+                 
+            </div>
+            <div class="row" align="center">
+                <h3> Edit Collections </h3>
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th> Name </th> <th> Categories (comma separated) </th> 
+                        </tr>
+                        {% for col in list %}
+                        <tr id="editcol{{col.id_collection}}" hidden>
+                            <form action="{{ url_for('collectionsedit') }}" method="POST" style="display: none;">
+                                <td hidden > <input type="text" value="PUT" name="method" /> </td>
+                                <td hidden > <input type="number" value="{{col.id_collection}}" name="id_collection"/> </td>
+                                <td> <input type="text" name="name" value="{{col.name}}" /> </td> <td> <textarea type="text" name="categories">{{col.categories}}</textarea> </td> <td><input type="submit" class="btn general mob-button" value="Save"/> </td>
+                            </form>
+                        </tr>
+                        <tr id="col{{col.id_collection}}">
+                            <form action="{{ url_for('collectionsedit') }}" method="POST">
+                                <td hidden > <input type="text" value="DELETE" name="method" /> </td>
+                                <td hidden > <input type="number" value="{{col.id_collection}}" name="id_collection" /> </td>
+                                <td> {{ col.name }} </td> <td> {{ col.categories }} </td> <td> <input type="submit" class="btn general mob-button" value="Delete"> </td> <td> <button class="btn general mob-button" type="button" onclick="$('#col'+'{{col.id_collection}}').hide(); $('#editcol'+'{{col.id_collection}}').show();">  Edit </button> </td>
+                            </form>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            {% if rol == 1 %}
+                <div class="row" align="center"> 
+                    <a class="mob-nav" href="{{ url_for('collectionsedit') }}"><button class="btn general mob-button"> Edit/Create Collections </button> </a>
+                
+                </div>
+                <br>
+            {% endif %}
+            <div class="row" > <!-- content grid -->
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-10">
+                    <div class="row">
+
+                        {% for col in list %}
+                           <a href="/co:{{ col.name}}" class="col-xs-12 col-md-4 btn btn-default white bg-soft-blue thumb"> <!-- thumb -->
+                                {{ col.name}}
+                            </a>
+                        {% endfor %}
+
+                    </div>
+                </div>
+                <div class="col-md-1">
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+

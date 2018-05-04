@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript">
+
+        var blocks = [
+            {% for b in data %}
+            [{{b.l}}, {{b.t}}, {{b.w}}, {{b.h}}, 'G{{b.id[10:]}:{{b.tag}}'],
+            {% endfor %}
+            ];
+
+        function drawpreview() {
+
+            var c=document.getElementById("mycanvas");
+            var ctx=c.getContext("2d");
+            ctx.scale(1/{{zoom}},1/{{zoom}});
+
+            ctx.rect(0,0,{{width}},{{height}});
+            ctx.stroke();
+
+            for (var i=0;i<blocks.length;i++) {
+                var seg = blocks[i];
+                ctx.rect(seg[0],seg[1],seg[2],seg[3]);
+                ctx.strokeStyle="#5ac2ec";
+                ctx.stroke();
+                ctx.font="26px Verdana";
+                ctx.fillText(seg[4],seg[0]+20,seg[1]+30);
+            }
+        }
+        
+
+    </script>
+
+</head>
+<body onload="drawpreview();"  width="{{width}}" height="{{height}}" >
+
+    <canvas id="mycanvas" width="{{width}}" height="{{height}}" />
+
+</body>
+</html>

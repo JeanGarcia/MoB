@@ -1,0 +1,83 @@
+{% extends "layout.html" %}
+
+{% block title %} 
+    {% if error %}
+        ERROR FOUND
+    {% else %}
+        MOB REPOSITORY
+    {% endif %}
+{% endblock %}
+
+
+{% block content %}
+    {% if error %}
+        <div class="row">
+            <div class="alert alert-danger"> 
+                <h3> {{error}}</h3>
+            </div>
+        </div>
+    {% else %}
+        <div class="row mob-leng-en" hidden> <!-- content grid -->
+            <p class="mob-home-p" > 
+                <b> Proyecto MoB: </b> (Manual design of Blocks), este proyecto tiene como objetivo complementar otro proyecto llamado <a href="http://bom.ciens.ucv.ve" class="link" target="_blank"> Proyecto BoM </a>, el cual consiste básicamente en un algoritmo de segmentación de páginas Web. El trabajo de MoB es obtener una "mejor segmentación" para una página Web específica, esta segmentacion resultante podrá entonces ser procesada junto con la segmentacion resultante del algoritmo BoM ( o cualquier otro algoritmo de segmentación) y establecer una evaluación sobre dicho algoritmo midiendo las diferencias entren ambas segmentaciones.<br> 
+                <br>
+                El enfoque para evaluar dichos algoritmos se basa en la premisa de que la segmentación de una página Web es dada por el punto de vista del usuario y no necesariamente por el código de la misma, por esto se considera que el mejor resultado debería ser obtenido a través de una segmentación manual realizada por el usuario. Debido a que el punto de vista de cada usuario puede ser subjetivo, se debe tomar el mayor número de segmentaciones manuales realizadas por diferentes usuarios como sea posible y se deben procesar para crear la "mejor segmentación" a partir de las características compartidas entre todas esas segmentaciones.<br>
+                <br>
+                El Proyecto MoB esta constituido por 3 elementos: <b>Extensión MoB de Chrome</b>, <b>MoB API</b> y <b> MoB Repository</b>.
+
+            </p>
+            <p class="mob-home-p" > 
+                <b>- Extensión MoB de Chrome: </b> Es la herramienta de segmentación manual que le permite al usuario realizar la segmentación manual sobre una página Web. Es necesaria para poder registrarse en el sistema de MoB y poder iniciar sesión en el mismo. Puede descargar la herramienta <a href="{{url_for('downloads')}}">AQUI</a>. 
+            </p>
+            <p class="mob-home-p" > 
+                <b>- MoB API: </b>  Ofrece los servicios necesarios para controlar la informacion de las segmentaciones que son enviadas por los usuarios y almacenadas en la base de datos. Posee varios servicios para aquellos que deseen obtener el resultado de las segmentaciones en diferentes formatos o enviar nuevas segmentaciones resultantes de otros algoritmos de segmentación, para saber más sobre los servicios que ofrece dirigete la <a href="{{url_for('get_doc')}}"> Documentacion del API </a>. 
+            </p>
+
+            <p class="mob-home-p" > 
+                <b>- MoB Repository: </b>  Consiste en el sitio Web en el que te encuentras actualmente, cuyo proposito es el de almacenar y presentar la información de las diferentes segmentaciones realizadas sobre las páginas Web, todas ellas se pueden encontrar en las <a href="{{url_for('get_collections')}}">Collecciones </a>o buscando directamente en el buscador. Si tienes más dudas puedes visitar la sección de <a href="{{url_for('faqs')}}">Preguntas Frecuentes</a>.  
+            </p>
+        </div>
+        <div class="row mob-leng-es" hidden> <!-- content grid -->
+            <p class="mob-home-p" > 
+                <b> Proyecto MoB: </b> (Manual design of Blocks), este proyecto tiene como objetivo complementar otro proyecto llamado <a href="http://bom.ciens.ucv.ve" class="link" target="_blank"> Proyecto BoM </a>, el cual consiste básicamente en un algoritmo de segmentación de páginas Web. El trabajo de MoB es obtener una "mejor segmentación" para una página Web específica, esta segmentacion resultante podrá entonces ser procesada junto con la segmentacion resultante del algoritmo BoM ( o cualquier otro algoritmo de segmentación) y establecer una evaluación sobre dicho algoritmo midiendo las diferencias entren ambas segmentaciones.<br> 
+                <br>
+                El enfoque para evaluar dichos algoritmos se basa en la premisa de que la segmentación de una página Web es dada por el punto de vista del usuario y no necesariamente por el código de la misma, por esto se considera que el mejor resultado debería ser obtenido a través de una segmentación manual realizada por el usuario. Debido a que el punto de vista de cada usuario puede ser subjetivo, se debe tomar el mayor número de segmentaciones manuales realizadas por diferentes usuarios como sea posible y se deben procesar para crear la "mejor segmentación" a partir de las características compartidas entre todas esas segmentaciones.<br>
+                <br>
+                El Proyecto MoB esta constituido por 3 elementos: <b>Extensión MoB de Chrome</b>, <b>MoB API</b> y <b> MoB Repository</b>.
+
+            </p>
+            <p class="mob-home-p" > 
+                <b>- Extensión MoB de Chrome: </b> Es la herramienta de segmentación manual que le permite al usuario realizar la segmentación manual sobre una página Web. Es necesaria para poder registrarse en el sistema de MoB y poder iniciar sesión en el mismo. Puede descargar la herramienta <a href="{{url_for('downloads')}}">AQUI</a>. 
+            </p>
+            <p class="mob-home-p" > 
+                <b>- MoB API: </b>  Ofrece los servicios necesarios para controlar la informacion de las segmentaciones que son enviadas por los usuarios y almacenadas en la base de datos. Posee varios servicios para aquellos que deseen obtener el resultado de las segmentaciones en diferentes formatos o enviar nuevas segmentaciones resultantes de otros algoritmos de segmentación, para saber más sobre los servicios que ofrece dirigete la <a href="{{url_for('get_doc')}}"> Documentacion del API </a>. 
+            </p>
+
+            <p class="mob-home-p" > 
+                <b>- MoB Repository: </b>  Consiste en el sitio Web en el que te encuentras actualmente, cuyo proposito es el de almacenar y presentar la información de las diferentes segmentaciones realizadas sobre las páginas Web, todas ellas se pueden encontrar en las <a href="{{url_for('get_collections')}}">Collecciones </a>o buscando directamente en el buscador. Si tienes más dudas puedes visitar la sección de <a href="{{url_for('faqs')}}">Preguntas Frecuentes</a>.  
+            </p>
+        </div>
+        <div class="row mob-leng-fr" hidden> <!-- content grid -->
+            <p class="mob-home-p" > 
+                <b> Proyecto MoB: </b> (Manual design of Blocks), este proyecto tiene como objetivo complementar otro proyecto llamado <a href="http://bom.ciens.ucv.ve" class="link" target="_blank"> Proyecto BoM </a>, el cual consiste básicamente en un algoritmo de segmentación de páginas Web. El trabajo de MoB es obtener una "mejor segmentación" para una página Web específica, esta segmentacion resultante podrá entonces ser procesada junto con la segmentacion resultante del algoritmo BoM ( o cualquier otro algoritmo de segmentación) y establecer una evaluación sobre dicho algoritmo midiendo las diferencias entren ambas segmentaciones.<br> 
+                <br>
+                El enfoque para evaluar dichos algoritmos se basa en la premisa de que la segmentación de una página Web es dada por el punto de vista del usuario y no necesariamente por el código de la misma, por esto se considera que el mejor resultado debería ser obtenido a través de una segmentación manual realizada por el usuario. Debido a que el punto de vista de cada usuario puede ser subjetivo, se debe tomar el mayor número de segmentaciones manuales realizadas por diferentes usuarios como sea posible y se deben procesar para crear la "mejor segmentación" a partir de las características compartidas entre todas esas segmentaciones.<br>
+                <br>
+                El Proyecto MoB esta constituido por 3 elementos: <b>Extensión MoB de Chrome</b>, <b>MoB API</b> y <b> MoB Repository</b>.
+
+            </p>
+            <p class="mob-home-p" > 
+                <b>- Extensión MoB de Chrome: </b> Es la herramienta de segmentación manual que le permite al usuario realizar la segmentación manual sobre una página Web. Es necesaria para poder registrarse en el sistema de MoB y poder iniciar sesión en el mismo. Puede descargar la herramienta <a href="{{url_for('downloads')}}">AQUI</a>. 
+            </p>
+            <p class="mob-home-p" > 
+                <b>- MoB API: </b>  Ofrece los servicios necesarios para controlar la informacion de las segmentaciones que son enviadas por los usuarios y almacenadas en la base de datos. Posee varios servicios para aquellos que deseen obtener el resultado de las segmentaciones en diferentes formatos o enviar nuevas segmentaciones resultantes de otros algoritmos de segmentación, para saber más sobre los servicios que ofrece dirigete la <a href="{{url_for('get_doc')}}"> Documentacion del API </a>. 
+            </p>
+
+            <p class="mob-home-p" > 
+                <b>- MoB Repository: </b>  Consiste en el sitio Web en el que te encuentras actualmente, cuyo proposito es el de almacenar y presentar la información de las diferentes segmentaciones realizadas sobre las páginas Web, todas ellas se pueden encontrar en las <a href="{{url_for('get_collections')}}">Collecciones </a>o buscando directamente en el buscador. Si tienes más dudas puedes visitar la sección de <a href="{{url_for('faqs')}}">Preguntas Frecuentes</a>.  
+            </p>
+        </div>
+    {% endif %}
+{% endblock %}
+
+

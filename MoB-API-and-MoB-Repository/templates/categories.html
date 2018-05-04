@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block flash_msg %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{category}} alert-dismissable" >
+                    <a  href="#" class="close" data-dismiss="alert" aria-label="close" >×</a>
+                    <center><strong> {{category}}</strong> <span>{{message}}</span></center>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+{% endblock %}
+
+{% block breadcrumbs %}
+
+    <li><a href="{{ url_for('get_collections') }}" >Collections</a></li>
+    <li><a href="{{ url_for('get_categories', collection=co) }}" class="current">{{co}}</a></li>
+
+{% endblock %}
+
+{% block title %} 
+    CATEGORIES
+{% endblock %}
+
+{% block content %}
+    {% if error %}
+        <div class="row">
+            <div class="alert alert-danger"> 
+                <h3> {{error}}</h3>
+            </div>
+        </div>
+    {% else %}
+        <div class="row ">
+            {% for cat in list%}
+               <a href="{{ url_for('get_webpages', collection=co, category =cat)}}" class="col-xs-12 col-md-4 btn btn-default white bg-soft-blue thumb"> <!-- thumb -->
+                    {{cat}}
+                </a>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}
+

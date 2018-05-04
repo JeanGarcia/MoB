@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='img/mob_icon.png') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='lib/bootstrapv3/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='lib/fa/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Oxygen" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+    {% block head %}
+    {% endblock %}
+    <script src="{{ url_for('static', filename='lib/jquery/jquery-3.2.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/bootstrapv3/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    
+    <title>MoB - Repository</title>
+</head>
+<body >
+
+<div class="container-fluid bg-white">
+        <div class= "row header-img">
+
+        </div>
+        <header class="row flexrow shadow-bot">
+            <div class="col-sm-8 header-title bg-white "> <!-- Title -->
+                <a style="text-decoration: none;" href="{{ url_for('index') }}">
+                    <h1 class="soft-blue"> MoB Repository </h1>
+                    <p class="soft-blue"> (Manual design of Blocks)</p> 
+                </a>
+            </div>
+            <div class="col-md-4 bg-white hidden-xs hidden-sm"> <!-- Partnes Logos -->
+                    <div class="col-xs-4">
+                        <a href="https://www.lip6.fr/" >
+                            <img class="img-responsive mob-img" src="{{ url_for('static', filename='img/logo_lip6.png') }}" />
+                        </a>
+                    </div>
+                    <div class="col-xs-4">
+                        <a href="http://www.ucv.ve/">
+                            <img class="img-responsive mob-img" src="{{ url_for('static', filename='img/ucv_web.png') }}" />
+                        </a>
+                    </div>
+                    <div class="col-xs-4">
+                        <a href="http://computacion.ciens.ucv.ve/escueladecomputacion/">
+                            <img class="img-responsive mob-img" src="{{ url_for('static', filename='img/logo_escuela.png') }}" />
+                        </a>
+                    </div>
+            </div>
+            <div class="col-sm-4 hidden-md hidden-lg hidden-xl bg-white"> <!-- Partnes Logos (In a minified version) -->
+                    <div class="col-xs-4">
+                        <a href="https://www.lip6.fr/" >
+                            <img style="max-width: 80px; padding-top: 10px;" class="img-responsive mob-img" src="{{ url_for('static', filename='img/logo_lip6.png') }}" />
+                        </a>
+                    </div>
+                    <div class="col-xs-4">
+                        <a href="http://www.ucv.ve/">
+                            <img style="max-width: 80px; padding-top: 10px;" class="img-responsive mob-img" src="{{ url_for('static', filename='img/ucv_web.png') }}" />
+                        </a>
+                    </div>
+                    <div class="col-xs-4">
+                        <a href="http://computacion.ciens.ucv.ve/escueladecomputacion/">
+                            <img style="max-width: 80px; padding-top: 10px;" class="img-responsive mob-img" src="{{ url_for('static', filename='img/logo_escuela.png') }}" />
+                        </a>
+                    </div>
+            </div>
+            <!-- NAV MENU -->
+            
+                <nav class="col-xs-12 bg-soft-blue mob-nav"> 
+
+                    {% if session['user_id'] %}
+                    <div class="col-sm-1">
+                    </div>
+                    <a href="{{ url_for('get_userinfo', user= session['user_username']) }}">
+                        <div class="col-sm-3">
+                             <b> Username: </b> <span style="color:white"> {{ session['user_username']}}</span> |  <b> Rol: </b> <span style="color:white"> {{ session['user_rolname']}}  </span>
+                        </div>
+                    </a>
+                    {% else %}
+                    <div class="col-sm-4">
+                    </div>
+                    {% endif %}
+                    <a href="{{ url_for('index') }}">
+                        <div class="col-sm-1 elem">
+                        <i class="fa fa-home" aria-hidden="true"></i> HOME
+                        </div> 
+                    </a>
+                    <a  href="{{ url_for('get_collections') }}">              
+                        <div class="col-sm-2 elem">
+                           <i class="fa fa-database " aria-hidden="true"></i> COLLECTIONS
+                        </div>
+                    </a>
+                    <a href="{{ url_for('tagsinfo') }}">
+                        <div class="col-sm-1 elem">
+                           <i class="fa fa-tag " aria-hidden="true"></i>  TAGS
+                        </div>
+                    </a>
+                    <a href="{{ url_for('downloads') }}">
+                        <div class="col-sm-2 elem">
+                          <i class="fa fa-download " aria-hidden="true"></i>   DOWNLOADS
+                        </div>     
+                    </a>          
+
+                    <a href="{{ url_for('faqs') }}">
+                        <div class="col-sm-1 elem">
+                           <i class="fa fa-info-circle " aria-hidden="true"></i>  FAQS
+                        </div>
+                    </a>
+                    <div class="col-sm-1">
+                        <select id="mob-rep-leng">
+                            <option value="en"> ENG </option>
+                            <option value="es"> ESP </option>
+                            <option value="fr"> FRA </option>
+                        </select>
+                    </div>                
+                </nav>
+        </header>
+
+        <div class="row search-bar bg-white form-group"> <!-- search bar -->
+            <div class=" hidden-xs col-sm-1"> <!-- SPAN -->
+            </div>
+            <div class=" hidden-xs col-sm-3"> <!-- collection -->
+                <label class="soft-blue"> Collection </label>
+            </div>
+            <div class=" hidden-xs  col-sm-2"> <!-- category -->
+                <label class="soft-blue"> Category </label>
+            </div>
+            <div class=" hidden-xs  col-sm-1"> <!-- granularity -->
+                <label class="soft-blue"> </label>
+            </div>
+            <div class=" hidden-xs col-sm-3 "> <!-- sites name | key word | User name -->
+
+            </div>
+            <div class=" hidden-xs col-sm-1"> <!-- search by user -->
+            </div>
+            <div class=" hidden-xs col-sm-1"> <!-- SPAN -->
+            </div>
+        </div>
+
+        <form action="{{url_for('search')}}" method="post">
+            <div class="row bg-white form-group"> <!-- search bar -->
+                <div class="col-sm-1"> <!-- SPAN -->
+                </div>
+                <div class="col-sm-3"> <!-- collection -->
+                    <select class="form-control mob-form" name="collection" id="s_collection" onclick="search_refresh(this.value)">
+                        <option value="all"> All </option>
+                        {% for col in search %}
+                        <option value="{{col.name}}">{{col.name}}</option>
+                        {% endfor%}
+                    </select>
+                </div>
+                <div class="col-sm-2"> <!-- category -->
+                    <select class="form-control mob-form" name="category" id="s_category">
+                        <option value="all"> All </option>
+                        {%  for col in search %}
+                            {% for cat in col.categories %}
+                                <option value="{{cat}}" class="s_option id_{{col.name}}" hidden> {{cat}} </option>
+                            {% endfor %}
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-sm-1"> <!-- granularity -->
+                    <select class="form-control mob-form" id="s_op" name="op">
+                        <option value="page" >Page</option>
+                        <option value="user" >User</option>
+                    </select>
+                </div>
+                <div class="col-sm-3 "> <!-- sites name | key word -->
+                    <input class="form-control mob-form" type="text" name="key" id="s_key" placeholder="Page title | Username" /> 
+                </div>
+                <div class="col-sm-1"> <!-- search by user -->
+                    <button class="form-control mob-button" type="submit" > <i class="fa fa-search"></i> </button> 
+                </div>
+                <div class="col-sm-1"> <!-- SPAN -->
+                </div>
+            </div>
+        </form>
+
+    <div class="row bg-white"> <!-- breadcrumbs -->
+            <div class="col-xs-1">
+            </div>
+            <div class="col-xs-10"> 
+                <ul class="breadcrumbs">
+                    {% block breadcrumbs %}
+
+                    {% endblock %}
+                </ul>
+            <div class="col-xs-1">
+            </div>
+        </div>
+    </div>
+
+    <div class="row thumbs">
+        <div class="col-xs-12 ">
+            {% block flash_msg %} {% endblock %}
+        </div>
+        <div class="col-xs-12 ">
+            <h2 class="soft-blue"> {% block title %}  {% endblock %} </h2>
+        </div>
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-10">
+            {% block content %} {% endblock %}
+        </div>
+        <div class="col-md-1">
+        </div>
+    </div>
+
+    <footer class=" row banner-footer ">
+        <hr class="bg-white" style="margin-top: 10px; margin-bottom: 10px">
+                <div class="col-xs-1 ">
+                </div>
+                <div class="col-xs-3 ">
+                    <div class="row">
+                        <div class="col-xs-12"> <a href="http://bom.ciens.ucv.ve" class="link" target="_blank"> BoM Project </a> </div>
+                        <div class="col-xs-12"> <a href="http://bom.ciens.ucv.ve/about/bom" class="link" target="_blank"> MoB Project </a> </div>
+                    </div>
+
+                </div>
+                <div class="col-xs-4">
+                    <div class="row">
+                        <div class="col-xs-12"> <a href="{{url_for('get_doc')}}" class="link"> MoB API Doc </a> </div>
+                        <div class="col-xs-12"> <a href="{{url_for('tutorials')}}" class="link"> Tutorials </a> </div>
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <div class="row">
+                        <div class="col-xs-12"> <a href="{{url_for('get_listusers')}}" class="link"> Users List </a> </div>
+                        <div class="col-xs-12"> <a href="{{url_for('faqs')}}" class="link"> FAQs </a> </div>
+                    </div>
+                </div>
+                <div class="col-xs-1">
+                </div>
+                <div class="col-xs-12" style="background-color: #5ac2ec">
+                    <p class="credits">  
+                        BoM and MoB projects by Andrés Sanoja & Stéphane Gançarski (2014) . New version with the help of Jean Garcia (2017)  
+                    </p>
+                </div>
+
+    </footer>
+
+</div>
+
+</body>
+</html>

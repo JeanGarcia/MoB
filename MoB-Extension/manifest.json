@@ -1,0 +1,52 @@
+{
+  "manifest_version": 2,
+
+  "name": "Manual-design-Of-Blocks",
+  "short_name": "MoB",
+  "version": "1.0",
+  "description": "Segment any Web page with this awesome tool",
+  "author": "Jean Garcia",
+
+  "background": {
+    "scripts": ["js/background.js"],
+    "persistent": false
+  },
+
+  "browser_action": {
+   "default_icon": {
+          "19": "img/icon19.png",
+          "38": "img/icon38.png"
+   },
+   "default_title": "Manual design of Blocks",
+   "default_popup": "index.html"
+  },
+
+ "icons": {
+          "16": "img/icon16.png",
+          "48": "img/icon48.png",
+          "128": "img/icon128.png" 
+  },
+
+  "content_scripts": [
+  { 
+    "matches": ["<all_urls>"],
+    "css": ["css/style_background.css", "fa/css/font-awesome.min.css"],
+    "js": ["js/script.js", "js/lib/pmanual2.js", "js/lib/bomlib.js", "js/lib/polyk.js", "js/lib/rectlib.js", "js/lib/html2canvas.min.js"]
+    }
+  ],
+
+  "permissions": [
+    "tabs",
+    "cookies",
+    "activeTab", 
+    "*://*/*", 
+    "background"
+   ],
+
+   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+   "web_accessible_resources": [
+   "css/*",
+   "js/*",
+   "fa/fonts/*"
+   ]
+}

@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+
+{% block flash_msg %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{category}} alert-dismissable" >
+                    <a  href="#" class="close" data-dismiss="alert" aria-label="close" >×</a>
+                    <center><strong> {{category}}</strong> <span>{{message}}</span></center>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+{% endblock %}
+
+{% block title %} 
+    WEB PAGES
+{% endblock %}
+
+{% block breadcrumbs %}
+        <li><a href="{{ url_for('get_collections') }}" >Collections</a></li>
+        <li><a href="{{ url_for('get_categories', collection=co) }}" >{{co}}</a></li>
+        <li><a href="{{ url_for('get_webpages', collection=co, category=ca) }}" class="current">{{ca}}</a></li>
+{% endblock %}
+
+
+{% block content %}
+    {% if error %}
+        <div class="row" > <!-- content grid -->
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="alert alert-danger"> 
+                        <h3> {{error}}</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1">
+            </div>
+        </div>
+    {% else %}
+        <div class="row" > <!-- content grid -->
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-10">
+                <div class="row ">
+
+                    {% for page in data %}
+                        
+                       <a id="thumb{{page.id}}" class=" col-xs-12 col-md-4 thumb-img img-cont" href="{{ url_for('get_pageinfo', page=page.id) }}"> <!-- thumb -->
+                            <img title="{{page.title}}" class="img-responsive" src="{{ page.capture }}" />
+                             <div id="veil-thumb{{page.id}}" class="overlay">
+                                <div class="text">
+                                    <marquee direction="left" speed="normal" behavior="loop">{{page.title}}</marquee>
+                                </div>
+                              </div>
+                        </a>
+                         
+                    {% endfor %}
+
+                </div>
+            </div>
+            <div class="col-md-1">
+            </div>
+        </div>
+    {% endif %}    
+{% endblock %}

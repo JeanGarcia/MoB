@@ -1,0 +1,133 @@
+{% extends "layout.html" %}
+
+
+{% block flash_msg %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{category}} alert-dismissable" >
+                    <a  href="#" class="close" data-dismiss="alert" aria-label="close" >×</a>
+                    <center><strong> {{category}}</strong> <span>{{message}}</span></center>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+{% endblock %}
+
+{% block title %} 
+    {% if error %}
+        ERROR FOUND
+    {% else %}
+        {% if list == "seg_page" %}
+            Ground Truth of Page : <a href="{{url_for('get_pageinfo', page=pa)}}">{{pa}}</a>
+        {% elif list == "seg_user" %}
+            Segmentations from : <a href="{{url_for('get_userinfo', user=data[-1]['username'])}}">{{data[-1]['username']}}</a>
+        {% elif list == "users" %}
+            List of Users : 
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+
+{% block content %}
+    {% if error %}
+        <div class="row">
+            <div class="alert alert-danger"> 
+                <h3> {{error}}</h3>
+            </div>
+        </div>
+    {% else %}
+        <div class="row" align="center">
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-10 table-responsive">
+                {% if list == "seg_page" %}
+                <table class=" table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Granularity</th>
+                            <th>Score</th>
+                            <th>User</th>
+                            <th>Segmentation Id</th>
+                            <th>Date</th>
+                            {% if rol == 1%}
+                                <th> </th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% set aux = 0 %}
+                        {% for row in data %}
+                        <tr>
+                            <td>{{row['mob_gran']}}</td>
+                            <td>{{row['mob_score']}}</td>
+                            <td><a href="{{url_for('get_userinfo',user=row['username'])}}">{{row['username']}}</a></td>
+                            <td><a href="{{url_for('get_seginfo',id=row['id_details'])}}">{{row['id_details']}}</a></td>
+                            <td>{{row['mob_date']}}</td>
+                            {% if rol == 1 %}
+                            {% set aux =  row['id_details'] %}
+                                <td> <a id="seg_{{aux}}" data-mob_url="{{url_for('del_seg', id=row['id_details'], back=list, id_back=row['id_web_page'], gran=row['gran'] )}}" onclick="mob_delete('Are you sure you want to delete this segmentation? it cannot be reverted.','#seg_{{aux}}')"> <i class="fa fa-trash"> </i> </a> </td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% elif list == "seg_user" %}
+                <table class=" table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Page</th>
+                            <th>Granularity</th>
+                            <th>Score</th>
+                            <th>Segmentation Id</th>
+                            <th>Date</th>
+                            {% if rol == 1%}
+                                <th> </th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in data %}
+                        <tr>
+                            <td><a href="{{url_for('get_pageinfo',page=row['id_web_page'])}}">{{row['title']}}</a></td>
+                            <td>{{row['mob_gran']}}</td>
+                            <td>{{row['mob_score']}}</td>
+                            <td><a href="{{url_for('get_seginfo',id=row['id_details'])}}">{{row['id_details']}}</a></td>
+                            <td>{{row['mob_date']}}</td>
+                            {% if rol == 1 %}
+                                {% set aux =  row['id_details'] %}
+                                <td> <a id="seg_{{aux}}" data-mob_url="{{url_for('del_seg', id=row['id_details'], back=list, id_back=row['id_user'] )}}" onclick="mob_delete('Are you sure you want to delete this segmentation? it cannot be reverted.','#seg_{{aux}}')"> <i class="fa fa-trash"> </i> </a> </td>
+                            
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                {% elif list == "users" %}
+                <table class=" table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Rol</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in data %}
+                        <tr>
+                            <td><a href="{{url_for('get_userinfo',user=row['username'])}}">{{row['username']}}</a></td>
+                            <td><a href="{{url_for('faqs')}}">{{row['name']}}</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                {% endif %}
+            </div>
+            <div class="col-md-1">
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+

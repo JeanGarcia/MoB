@@ -1,0 +1,268 @@
+{% extends "layout.html" %}
+
+{% block title %} 
+    {% if error %}
+        ERROR FOUND
+    {% else %}
+        FAQS
+    {% endif %}
+{% endblock %}
+
+
+{% block content %}
+    {% if error %}
+        <div class="row">
+            <div class="alert alert-danger"> 
+                <h3> {{error}}</h3>
+            </div>
+        </div>
+    {% else %}
+        <div class="row mob-leng-en" hidden> <!-- content grid -->
+            <div class=" col-xs-12"> 
+                <p class= "mob_q" onclick="$('.mob_a').hide(); $(this).siblings('.mob_a').slideDown()"> 
+                    - Where can i download the MoB Extension? 
+                </p>
+                <p hidden class="mob_a"> 
+                    You can download it right <a href="{{ url_for('downloads') }}">here</a>
+                </p>
+           </div>
+            <div class=" col-xs-12"> 
+                <p class= "mob_q" onclick="$('.mob_a').hide(); $(this).siblings('.mob_a').slideDown()"> 
+                    - Where can i consult the API's Documentation?
+                </p>
+                <p hidden class="mob_a"> 
+                    You can consult MoB API Documentation right <a href="{{ url_for('get_doc') }}">here</a>
+                </p>
+           </div>
+            <div class=" col-xs-12"> 
+                <p class= "mob_q" onclick="$('.mob_a').hide(); $(this).siblings('.mob_a').slideDown()"> 
+                    - What are the types of users and which function has each one?                
+                </p>
+                <div hidden class="mob_a table-responsive">
+                    <table class=" table table-striped" >
+                        <thead>
+                            <tr>
+                                <th> Type </th>
+                                <th> Description </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                    {% for r in rols_info %}
+                        <tr> 
+                            <td> {{r.name}} </td> <td> {{r.description}} </td>
+                        </tr>
+                    {% endfor %}
+                        </tbody>
+                    </table>
+            </div>
+           </div>
+            <div class=" col-xs-12"> 
+                <p class= "mob_q" onclick="$('.mob_a').hide(); $(this).siblings('.mob_a').slideDown()"> 
+                    - Where can i find some tutorials for the MoB Extension? 
+                </p>
+                <p hidden class="mob_a"> 
+                    You can find some tips, instructions and guidelines right <a href="{{ url_for('tutorials') }}">here</a>
+                </p>
+           </div>
+            <div class=" col-xs-12"> 
+                <p class= "mob_q" onclick="$('.mob_a').hide(); $(this).siblings('.mob_a').slideDown()"> 
+                    - Is it free to register on MoB?
+                </p>
+                <p hidden class="mob_a"> 
+                    Yes, it is. 
+                </p>
+           </div>
+            <div class=" col-xs-12"> 
+                <p class= "mob_q" onclick="$('.mob_a').hide(); $(this).siblings('.mob_a').slideDown()"> 
+                    - I created a segmentation but i can't see it anywhere.
+                </p>
+                <p hidden class="mob_a"> 
+                    You can search on your collection of segmentations (The link is on your profile), or you can search on the "Ground Truth" of the Web Page you segmented.  
+                </p>
+           </div>
+            <div class=" col-xs-12"> 
+                <p class= "mob_q" onclick="$('.mob_a').hide(); $(this).siblings('.mob_a').slideDown()"> 
+                    - My segmentation has the highest score, Why it doesn't show up on the GT tab of the Web Page I segmented?
+                </p>
+                <p hidden class="mob_a"> 
+                    The segmentations created by the users compose a pool of segmentations called "Ground Truth", the best segmentation is created automatically from that pool, taking all the shared characteristics between all the segmentations. This is the segmentation that is showed on the GT tab. 
+                </p>
+           </div>
+            <div class=" col-xs-12"> 
+                <p class= "mob_q" onclick="$('.mob_a').hide(); $(this).siblings('.mob_a').slideDown()"> 
+                    - I have changed the language but some stuff still remain in english.
+                </p>
+                <p hidden class="mob_a"> 
+                    The site is not completely traslated into the three languages, only the big blocks of information. The common words like: "home, downloads, page... etc" has been kept in english since is of common use on the Internet.
+                </p>
+           </div>
+        </div>
+
+
+        <div class="row mob-leng-es" hidden> <!-- content grid -->
+            <div class=" col-xs-12"> 
+                <p class= "mob_q" onclick="$('.mob_a').hide(); $(this).siblings('.mob_a').slideDown()"> 
+                    - ¿Dónde puedo descargar la extensión de MoB? 
+                </p>
+                <p hidden class="mob_a"> 
+                    Puedes descargar la extension y la API desde <a href="{{ url_for('downloads') }}">aqui</a>
+                </p>
+           </div>
+            <div class=" col-xs-12"> 
+                <p class= "mob_q" onclick="$('.mob_a').hide(); $(this).siblings('.mob_a').slideDown()"> 
+                    - ¿Dónde puedo consultar la documentación de la API de MoB?
+                </p>
+                <p hidden class="mob_a"> 
+                    Puedes consultar la documentación de MoB API <a href="{{ url_for('get_doc') }}">here</a>
+                </p>
+           </div>
+            <div class=" col-xs-12"> 
+                <p class= "mob_q" onclick="$('.mob_a').hide(); $(this).siblings('.mob_a').slideDown()"> 
+                    - ¿Cuáles son los tipos de rols que existen y que función tiene cada uno?                
+                </p>
+                <div hidden class="mob_a table-responsive">
+                    <table class=" table table-striped" >
+                        <thead>
+                            <tr>
+                                <th> Tipo </th>
+                                <th> Descripción </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                    {% for r in rols_info %}
+                        <tr> 
+                            <td> {{r.name}} </td> <td> {{r.description}} </td>
+                        </tr>
+                    {% endfor %}
+                        </tbody>
+                    </table>
+            </div>
+           </div>
+            <div class=" col-xs-12"> 
+                <p class= "mob_q" onclick="$('.mob_a').hide(); $(this).siblings('.mob_a').slideDown()"> 
+                    - ¿Dónde Donde puedo encontrar tutoriales para usar la extensión de MoB?
+                </p>
+                <p hidden class="mob_a"> 
+                    Puedes encontrar las instrucciones de uso de la extensión MoB <a href="{{ url_for('tutorials') }}">here</a>
+                </p>
+           </div>
+            <div class=" col-xs-12"> 
+                <p class= "mob_q" onclick="$('.mob_a').hide(); $(this).siblings('.mob_a').slideDown()"> 
+                    - ¿Puedo registrarme de forma gratuita en MoB?
+                </p>
+                <p hidden class="mob_a"> 
+                    Si, si puedes.
+                </p>
+           </div>
+            <div class=" col-xs-12"> 
+                <p class= "mob_q" onclick="$('.mob_a').hide(); $(this).siblings('.mob_a').slideDown()"> 
+                    - Creé una segmentación pero no la veo en la ningún lado.
+                </p>
+                <p hidden class="mob_a"> 
+                    Puedes buscar en tu colección de segmentaciones (El link está en tu perfil) o puedes buscar en el "Ground Truth" de la Página Web que segmentaste.
+                </p>
+           </div>
+            <div class=" col-xs-12"> 
+                <p class= "mob_q" onclick="$('.mob_a').hide(); $(this).siblings('.mob_a').slideDown()"> 
+                    - Mi Segmentación es la de mayor puntuación, ¿por qué no aparece en la pestaña del GT de la Página Web que segmenté?
+                </p>
+                <p hidden class="mob_a"> 
+                    Las segmentaciones creadas por los usuarios componen un pool de segmentaciones llamado "Ground Truth", la mejor segmentación es creada automáticamente a partir de ese pool de segmentaciones, tomando las características compartidas entre todas las segmentaciones, esta "mejor segmentación" es la que es mostrada en la página de información de la Página Web segmentada.
+                </p>
+           </div>
+            <div class=" col-xs-12"> 
+                <p class= "mob_q" onclick="$('.mob_a').hide(); $(this).siblings('.mob_a').slideDown()"> 
+                    - He cambiado de idioma pero hay cosas que se siguen manteniendo en inglés.
+                </p>
+                <p hidden class="mob_a"> 
+                    El sitio no está completamente traducido a los tres idiomas, sólo los bloques de información más grandes, las palabras comunes en inglés como: "home, downloads, page...etc" se han mantenido en inglés dado que son de uso común en el Internet. 
+                </p>
+           </div>
+        </div>
+
+
+        
+        <div class="row mob-leng-fr" hidden> <!-- content grid -->
+            <div class=" col-xs-12"> 
+                <p class= "mob_q" onclick="$('.mob_a').hide(); $(this).siblings('.mob_a').slideDown()"> 
+                    - Where can i download the MoB Extension? 
+                </p>
+                <p hidden class="mob_a"> 
+                    You can download it right <a href="{{ url_for('downloads') }}">here</a>
+                </p>
+           </div>
+            <div class=" col-xs-12"> 
+                <p class= "mob_q" onclick="$('.mob_a').hide(); $(this).siblings('.mob_a').slideDown()"> 
+                    - Where can i consult the API's Documentation?
+                </p>
+                <p hidden class="mob_a"> 
+                    You can consult MoB API Documentation right <a href="{{ url_for('get_doc') }}">here</a>
+                </p>
+           </div>
+            <div class=" col-xs-12"> 
+                <p class= "mob_q" onclick="$('.mob_a').hide(); $(this).siblings('.mob_a').slideDown()"> 
+                    - What are the types of users and which function has each one?                
+                </p>
+                <div hidden class="mob_a table-responsive">
+                    <table class=" table table-striped" >
+                        <thead>
+                            <tr>
+                                <th> Type </th>
+                                <th> Description </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                    {% for r in rols_info %}
+                        <tr> 
+                            <td> {{r.name}} </td> <td> {{r.description}} </td>
+                        </tr>
+                    {% endfor %}
+                        </tbody>
+                    </table>
+            </div>
+           </div>
+            <div class=" col-xs-12"> 
+                <p class= "mob_q" onclick="$('.mob_a').hide(); $(this).siblings('.mob_a').slideDown()"> 
+                    - Where can i find some tutorials for the MoB Extension? 
+                </p>
+                <p hidden class="mob_a"> 
+                    You can find some tips, instructions and guidelines right <a href="{{ url_for('tutorials') }}">here</a>
+                </p>
+           </div>
+            <div class=" col-xs-12"> 
+                <p class= "mob_q" onclick="$('.mob_a').hide(); $(this).siblings('.mob_a').slideDown()"> 
+                    - Is it free to register on MoB?
+                </p>
+                <p hidden class="mob_a"> 
+                    Yes, it is. 
+                </p>
+           </div>
+            <div class=" col-xs-12"> 
+                <p class= "mob_q" onclick="$('.mob_a').hide(); $(this).siblings('.mob_a').slideDown()"> 
+                    - I created a segmentation but i can't see it anywhere.
+                </p>
+                <p hidden class="mob_a"> 
+                    You can search on your collection of segmentations (The link is on your profile), or you can search on the "Ground Truth" of the Web Page you segmented.  
+                </p>
+           </div>
+            <div class=" col-xs-12"> 
+                <p class= "mob_q" onclick="$('.mob_a').hide(); $(this).siblings('.mob_a').slideDown()"> 
+                    - My segmentation has the highest score, Why it doesn't show up on the GT tab of the Web Page I segmented?
+                </p>
+                <p hidden class="mob_a"> 
+                    The segmentations created by the users compose a pool of segmentations called "Ground Truth", the best segmentation is created automatically from that pool, taking all the shared characteristics between all the segmentations. This is the segmentation that is showed on the GT tab. 
+                </p>
+           </div>
+            <div class=" col-xs-12"> 
+                <p class= "mob_q" onclick="$('.mob_a').hide(); $(this).siblings('.mob_a').slideDown()"> 
+                    - I have changed the language but some stuff still remain in english.
+                </p>
+                <p hidden class="mob_a"> 
+                    The site is not completely traslated into the three languages, only the big blocks of information. The common words like: "home, downloads, page... etc" has been kept in english since is of common use on the Internet.
+                </p>
+           </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+

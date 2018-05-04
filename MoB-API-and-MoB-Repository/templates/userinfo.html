@@ -1,0 +1,90 @@
+{% extends "layout.html" %}
+
+{% block flash_msg %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{category}} alert-dismissable" >
+                    <a  href="#" class="close" data-dismiss="alert" aria-label="close" >×</a>
+                    <center><strong> {{category}}</strong> <span>{{message}}</span></center>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+{% endblock %}
+
+{% block title %} 
+    {% if error %}
+        ERROR FOUND
+    {% else %}
+        USER INFO: {{username}} 
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% if error %}
+        <div class="row">
+            <div class="alert alert-danger"> 
+                <h3> {{error}}</h3>
+            </div>
+        </div>
+    {% else %}
+        <div class="row" align="center">
+
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-10 table-responsive">
+                <table class=" table table-striped">
+                    <tbody>
+                        <tr>
+                            <th scope="row"> Username </th> <td> {{user.username}} </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"> Name </th> <td> {{user.name}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row"> Lastname </th> <td> {{user.lastname}} </td>
+                        </tr> 
+                        <tr>
+                            <th scope="row"> Email </th> <td>  {{user.email}} </td>
+                        </tr>
+
+                        {% if rol == 1 %}
+                            <tr>
+                                <form action="{{ url_for('userroledit') }}" method="POST">
+                                    <input type="text" value="{{user.id_user}}" name="id_user" hidden />
+                                    <input type="text" value="{{user.username}}" name="username"  hidden />
+                                    <th scope="row"> Rol </th> 
+                                    <td> 
+                                        <select name='rol'> 
+                                            {% for r in rols %}
+                                                {% if r.name == user.rolname %}
+                                                    <option value="{{r.id}}" selected> {{r.name}} </option>
+                                                {% else %} 
+                                                    <option value="{{r.id}}" > {{r.name}} </option>
+                                                {% endif %}        
+                                                
+                                            {% endfor %}
+                                            
+                                        </select> 
+                                        <input type="submit" class="btn general mob-button" value="Save">
+                                    </td>
+                                </form>
+                            </tr>
+
+                        {% else %}
+                            <tr>
+                                <th scope="row"> Rol </th> <td>  {{user.rolname}} </td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+                <a  class="col-xs-12 btn btn-info white" href ="{{url_for('get_listseguser', id=user.id_user)}}" > <!-- thumb -->
+                    {{user.username}} Segmentations's List 
+                </a>
+            </div>
+            <div class="col-md-1">
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

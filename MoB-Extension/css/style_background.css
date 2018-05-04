@@ -1,0 +1,288 @@
+/* Styles for the background process  */
+
+#MoB-Menu {
+	position: fixed; 
+    width: 40px; 
+    left: 0px;
+    top: 50px;
+	z-index: 999999999999;
+	-webkit-animation: mob-animation 2s 1; 
+}
+
+@-webkit-keyframes mob-animation {
+    from {  left:20px;
+            top: 300px;}
+    to {    left:0px;
+            top: 50px;}
+}
+
+#Mob-infopanel {
+    position: fixed; 
+    width: 240px; 
+    height: 264px;
+    overflow-y: scroll;
+    left: 40px;
+    top: 50px;
+    z-index: 999999999999;
+    background-color: white;
+}
+
+#MoB-blockinfo {
+    position: absolute; 
+    width: 200px; 
+    height: 200px;
+    left: 0px;
+    top: 0px;
+    z-index: 99999999999;
+    background-color: white;
+}
+
+.MoB-scroll::-webkit-scrollbar-track, .MoB-scroll::-webkit-scrollbar-track
+{
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: white;
+}
+
+.MoB-scroll::-webkit-scrollbar, .MoB-scroll::-webkit-scrollbar
+{
+    width: 5px;
+    background-color: white;
+}
+
+.MoB-scroll::-webkit-scrollbar-thumb, .MoB-scroll::-webkit-scrollbar-thumb
+{
+    background-color: #5ac2ec;
+    border: 2px solid #5ac2ec;
+    border-radius: 5px;
+}
+
+#MoB-Menu ul {
+    display: block;
+    list-style-type: none;
+    background-color: rgba(90,194,236,0.6);
+    color: rgba(255,255,255,0.6);
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    -webkit-margin-before: 0em;
+    -webkit-margin-after: 0em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 0px;
+}
+
+#MoB-Menu li {
+	text-align: center;
+	cursor:pointer;
+}
+
+#MoB-Menu .start-MoB-item {
+    border-top-right-radius: 9px;
+}
+
+#MoB-Menu .end-MoB-item {
+    border-bottom-right-radius: 9px;
+}
+
+#MoB-Menu .start-MoB-item:hover, #MoB-Menu .MoB-item:hover, #MoB-Menu .end-MoB-item:hover {
+	background-color: rgba(255,255,255,0.9);
+	border-color: rgba(255,255,255,0.9);
+	color: rgba(90,194,236,0.9);
+}
+
+#MoB-Menu .item-MoB-active {
+	background-color: rgba(255,255,255,0.9);
+	border-color: rgba(255,255,255,0.9);
+	color: rgba(90,194,236,0.9);
+}
+
+.MobTag {
+    position: relative;
+    color: #5ac2ec;
+    font-size: 1em;
+    background-color: white;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding: 0px;
+    text-align: center;
+}
+
+.MobBlock {
+    position: absolute; 
+    border: 4px dashed rgb(90, 194, 236); 
+    display: block;
+}
+
+.mob-warning {
+    border: 4px dashed rgb(169, 68, 66); 
+}
+
+.mob-error {
+    border: 4px dashed rgb(169, 68, 66); 
+}
+
+.mob-error-gran {
+    border: 4px dashed rgb(169, 68, 66); 
+}
+
+.mobalert-warning{
+    font-size: 0.8em;
+    padding: 0.4rem 0.4rem;
+    margin-bottom: 0rem;
+    background-color: rgb(197, 155, 27);
+    color:#EEEFD1;
+    border-bottom: 1px solid #c59b1b;
+}
+
+.mobalert-warning:hover{
+    color: white;
+    background-color: rgb(255, 193, 7); 
+    cursor: pointer;
+
+}
+
+.mobalert-error:hover{
+    background-color: rgb(169, 68, 66);
+    color: white;
+    cursor: pointer;
+}
+
+.mobalert-error{
+    font-size: 0.8em;
+    padding: 0.4rem 0.4rem;
+    margin-bottom: 0rem;
+    border-bottom: 1px solid #964140;
+    background-color: rgb(146, 44, 42);
+    color: #d6c4c4;
+}
+
+.mobinfo-warning{
+    background-color: #ffec07;
+    color:#ffc107;
+}
+
+.mobinfo-error{
+    background-color: #ff1616;
+    color: #ca2424;
+}
+
+.MoB-close {
+    position: relative;
+    left:90px;
+    cursor: pointer;
+}
+
+.MoB-span {
+
+}
+
+.MoB-table {
+    color:#5ac2ec;
+}
+
+.MoB-infoblock-title {
+    background-color: #5ac2ec;
+    color: white;
+}
+
+.MoB-infoblock-table{
+    overflow-y: scroll;
+    width: 200px; 
+    height: 180px;
+}
+
+#granedit {
+    border: 1px solid rgba(90,194,236,0.6);
+    background-color: white;
+    margin-left: 4px;
+}
+
+#granedit:hover {
+    background-color: rgba(90,194,236,0.6);
+}
+
+#loadscreen {
+    position: fixed;
+    top:0px;
+    left:0px;
+    padding-top: 100px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999999999999;
+    font-size: 4rem;
+    background-color: rgba(255,255,255,0.8);
+    color:#5ac2ec;
+    text-align: center;
+}
+
+
+
+/* BOOTSTRAP MODIF  */
+
+
+/* TAGS MODIF  */
+
+hr {
+    background-color: #5ac2ec;
+    margin: 6px;
+}
+
+
+/* Styles for the modal  */
+
+.MoB-modalbg {
+    background-color: rgba(0,0,0,0.8); 
+    width:100vw;
+    height:100vh;
+    top:0;
+    left:0;
+    position: fixed;
+    z-index:999999999999;
+}
+
+.MoB-modalmsg {
+    background-color: white;
+    border: 2px solid rgb(90, 194, 236); 
+    border-radius: 5px;
+    width:50%; 
+    position: fixed;
+    top:25%;
+    left:25%;
+    z-index:9999999999999; 
+    padding-bottom: 10px;
+}
+
+.MoB-modalmsg h2 {
+    background-color: rgb(90, 194, 236);
+    text-align: center;
+    color:white;
+}
+
+.MoB-modalmsg p {
+    color: rgb(90, 194, 236);
+    text-align: center;
+}
+
+.MoB-modalmsg select {
+    text-align: center;
+    border-color: rgb(90, 194, 236);
+    width: 200px;
+}
+
+.MoB-modalmsg button {
+    background-color: rgb(255, 255, 255);
+    color:rgb(90, 194, 236);
+    border: 1px solid rgb(90, 194, 236); 
+    border-radius: 8px;
+    width: 150px;
+}
+
+.MoB-modalmsg button:hover {
+    background-color: rgb(90, 194, 236);
+    color:white;
+}
+
+.MoB-modalmsg .MoB-input {
+    text-align: center;
+    border-color: rgb(90, 194, 236);
+    width: 150px;
+}

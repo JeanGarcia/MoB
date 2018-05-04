@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Mob</title>
+
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+  <link rel="stylesheet" href="fa/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Oxygen" rel="stylesheet">
+
+  <script src="js/lib/jquery-3.2.1.min.js"></script>
+  <script src="js/lib/bootstrap.js"></script>
+  <script src="js/popup.js"></script>
+  <script src="js/mob_leng.js"></script>
+
+</head>
+<body>
+
+  <div class="row">
+
+        <div class="col-sm-12">
+          <button id="logout_btn" class="btn btn-primary general btn-block" hidden>Log Out</button>
+        </div>
+        <div class="col-sm-12">
+          <h1> MoB </h1>
+        </div>
+        <div class="col-sm-12">
+        <ul class="nav nav-tabs MainMenu">
+          <li class="nav-item col-sm-4">
+            <a class="nav-link active" data-toggle="tab" href="#home"><i class="fa fa-home fa-3x" aria-hidden="true"></i></a>
+          </li>
+          <li class="nav-item col-sm-4" id= "score-tab-MoB" >
+            <a class="nav-link" data-toggle="tab" href="#rank"><i class="fa fa-trophy fa-3x" aria-hidden="true"></i></a>
+          </li>
+          <li class="nav-item col-sm-4" >
+            <a class="nav-link" data-toggle="tab" href="#info"><i class="fa fa-info-circle fa-3x" aria-hidden="true"></i></a>
+          </li>
+        </ul>
+      </div>
+  </div>
+
+  <div class="row" >
+    <div class="col-sm-12" id="mobpopalert">
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12 tab-content">
+
+    <!-- ----------------------------------------      ALL THE TABS       ------------------------------------------ -->
+
+    <!-- ----------------------------------------     HOME        ------------------------------------------ -->
+
+
+    <div id="home" class="col-sm-12 tab-pane active">
+      <br/>
+      <h4 id="h_home"> - HOME - </h4>
+      <hr>
+      <div id="home_home" class= "col-sm-12" hidden>
+          <div class="row"  style="font-size: 0.8rem;">
+            <div class="col-sm-12" align="center">
+              <table class="table table-responsive table-bordered " style="margin-bottom: 2px;">
+                <tr>
+                  <th id="info_username"> Username: </th>  <td id="data_username2" >  </td> 
+                </tr>
+                <tr> 
+                  <th id="info_email">Email: </th> <td id="data_mail2">  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div class="row"> 
+            <div class="col-sm-12" align="right">
+                <button  id="user_edit_btn" class="btn btn-primary general mini-btn"> <i class="fa fa-edit fa-2x"></i> </button>
+            </div>
+          </div>
+
+          <div class="row"> 
+            <div class="col-sm-12" align="center">
+              <button id="startB" class="btn btn-primary general btn-block">START</button>
+            </div>
+          </div>
+
+          <div class="row"> 
+            <div class="col-sm-12" align="center">
+              <p id="home_msg_2" style="font-size: 0.8rem;"> Do you want to export the segmentation into JSON, XML or other format? go <a href=""> here </a></p>
+            </div>
+          </div>
+
+      </div>
+
+<!-- EDITING THE USER'S INFO VIEW -->
+      <div id="home_user_edit" class= "col-sm-12" hidden>
+
+        <div class="row" >
+          <div class="col-2">
+            <button id="back_btn2" class="btn btn-primary general mini-btn"> <i class="fa fa-chevron-left fa-2x" aria-hidden="true"></i> </button>
+          </div>
+          <div class="col-10">
+            <p id="note_newpass" class="alert alert-warning mob-warning-note"> Fill the <b>"New Password" </b> field only if you want to change your current password. <b> Changing the email </b> will require a re-activation.</p>
+          </div>
+        </div>
+
+        <form role="form" id="mob_userinfo">
+          <div class="row"  style="font-size: 0.8rem;">
+
+            <div class="col-sm-12" align="center" >
+              <div class="Popup-content extended">
+                <table class="table table-responsive table-bordered " style="margin-bottom: 2px;">
+                  <tr>
+                    <th id="info_username"> Username: </th>  <td><input type="text" id="data_username" maxlength="50" name="username" required></input>  
+                    </td> 
+                  </tr>
+                  <tr> 
+                    <th id="info_email">Email: </th> <td> <input type="email" id="data_mail" name="email" maxlength="50" required></input> </td>
+                  </tr>
+                  <tr>
+                    <th id="info_name"> Name: </th>  <td > <input type="text" id="data_name" name="name" maxlength="50" value="" ></input> </td>  
+                  </tr>
+                  <tr>
+                    <th id="info_lastname"> Lastname: </th> <td ><input type="text" id="data_lastname" name="lastname" maxlength="50" value=""></input> </td>
+                  </tr>
+                  <tr>
+                    <th id="info_newpass"> New Password: </th> <td ><input id="data_newpass" type="password" name="password"  minlength="6" maxlength="40" value=""></input> </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row"> 
+            <div class="col-sm-12" align="center">
+              <button id="save_btn" class="btn btn-primary general btn-block">SAVE</button>
+            </div>
+          </div>
+          <br/>
+        </form>
+
+
+      </div>
+
+
+<!-- LOGIN AND REGISTER BUTTOMS -->
+  <div id="mob_ls_btn" class="btn-group btn-group-justified" align="center">
+    <div class="btn-group">
+      <button type="button" id="home_login_link" class="btn btn-primary mob-ls-btn active "><span id="h_login" >Login</span></button>
+    </div>
+    <div class="btn-group">
+      <button type="button" id="home_signup_link" class="btn btn-primary mob-ls-btn"><span id="h_sign" > Sign Up </span></button>
+    </div>
+  </div>
+
+<!-- END LOGIN AND REGISTER BUTTOMS -->
+
+      <!-- ----------------------------------------      LOGIN      ------------------------------------------ -->
+      <div id="home_login" class= "col-sm-12">
+        <p style="font-size: 0.8rem;" align="center" id="login_msg_1"> Log in to use the segmentation tool!. </p>
+        <form class="form-horizontal" role="form" id="mob_login" name="datos_personales" >
+          <div class="form-group"> 
+            <div class="row">
+              <div class="input-group col-sm-12">
+                <div class="input-group-addon"><i aria-hidden="true" class="fa fa-user-o"></i></div>
+                <input class="form-control " id="user_username" maxlength="50" name="username" placeholder="Username" required="" type="text" value=""><br/>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-group col-sm-12">
+                <div class="input-group-addon"><i aria-hidden="true" class="fa fa-key"></i></div>
+                <input type="password" class="form-control" placeholder="Password" id="user_pass" name="password"  minlength="6" maxlength="40" value='' required /><br/>
+              </div>
+            </div>
+            <div class="row"> 
+              <div class="col-sm-12" align="center">
+                <button id="login_btn" class="btn btn-primary general btn-block"><i class="fa fa-chevron-right fa-2x" aria-hidden="true"></i></button>
+                <button id="forgot_btn" class="btn btn-primary general btn-block"> Forgot Password/Username?</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- ----------------------------------------      FORGOT PASSWORD     ------------------------------------------ -->
+      <div id="home_recover" class= "col-sm-12" hidden>
+        <button id="back_btn" class="btn btn-primary general mini-btn"> <i class="fa fa-chevron-left fa-2x" aria-hidden="true"></i> </button>
+        <form class="form-horizontal" role="form" id="mob_recover"  >
+          <div class="form-group"> 
+            <div class="row">
+              <div class="input-group col-sm-12">
+                <div class="input-group-addon"><i aria-hidden="true" class="fa fa-user-o"></i></div>
+                <input class="form-control " id="recover_email" maxlength="50" name="email" placeholder="Mail" required="" type="email" value=""><br/>
+              </div>
+            </div>
+            <div class="row"> 
+              <div class="col-sm-12" align="center">
+                <button id="recover_btn" class="btn btn-primary general btn-block"> RECOVER </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- ----------------------------------------       SIGN UP      ------------------------------------------ -->
+      <div id="home_signup" class= "col-sm-12" hidden>
+        <form class="form-horizontal" id="mob_signup"  role="form" name="datos_personales" >
+
+          <div class="form-group"> 
+            <div class="row">
+              <div class="input-group col-sm-12">
+                <div class="input-group-addon"><i aria-hidden="true" class="fa fa-at"></i></div>
+                <input type="email" class="form-control" placeholder="Email" id="user_email2" name="email"  maxlength="50" value='' required/><br />
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-group col-sm-12">
+                <div class="input-group-addon"><i aria-hidden="true" class="fa fa-user-o"></i></div>
+                <input type="text" class="form-control" placeholder="Username" id="user_username2" name="username"  maxlength="50" value='' required/><br />
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-group col-sm-12">
+                <div class="input-group-addon"><i aria-hidden="true" class="fa fa-key"></i></div>
+                <input type="password" class="form-control" placeholder="Password" id="user_pass2" name="password"  minlength="6" maxlength="40" value='' required /><br />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <input class="form-check-input cheky" type="checkbox" value="session" required> <p id="p_terms" class="cheky"> I agreed with the Terms & Conditions</p>
+              </div>
+            </div>
+            <div class="row"> 
+              <div class="col-sm-12" align="center">
+                <button class="btn btn-primary general btn-block" id="sign_btn"><i class="fa fa-chevron-right fa-2x" aria-hidden="true"></i></button>
+              </div>
+            </div>
+          </div>
+        </form>
+          
+      </div>
+    </div>
+
+    <!-- ----------------------------------------       RANKING      ------------------------------------------ -->
+
+
+    <div id="rank" class="tab-pane fade">
+      <br/>
+      <h4 id="h_rank"> - RANKING - </h4>
+      <hr>
+      <div class= "col-sm-12">
+          <div id="rank_user" class="row" hidden>
+            <div class="col-sm-12" align="center">
+              <p id="rank_msg_1" style="font-size: 0.8rem;"> Yours and global best scores of the segmentations of this page based on each granularity </p>
+            </div>
+            <div class="col-sm-12" id="score-data-MoB" align="center">
+              
+            </div>
+          </div>
+          <div id="rank_default" class="row">
+            <div class="col-sm-12" align="center">
+              <p id="rank_msg_2" style="font-size: 0.8rem;"> You need to be logged in to watch your score and the global scores.  </p>
+            </div>
+          </div>
+      </div>
+      <hr>
+      <p id="p_tip" style="font-size: 0.8rem;" align="center"> Pro Tip: the key to have a great score is to make a great segmentation in record time. </p>
+
+    </div>
+
+    <!-- ----------------------------------------     TUTORIALS/INFO        ------------------------------------------ -->
+
+    <div id="info" class="tab-pane fade">
+      <br/>
+      <h4 id="h_info"> - INFORMATION - </h4>
+      <hr>
+      <div class= "col-sm-12" >
+
+        <ul class="row nav nav-tabs Infopane ">
+          <li class="nav-item col-3 " >
+            <a class="nav-link active" data-toggle="tab" href="#infobtn"><i class="fa fa-info fa-1x " aria-hidden="true"></i></a>
+          </li>
+          <li class="nav-item col-3 " >
+            <a class="nav-link" data-toggle="tab" href="#addbtn"><i class="fa fa-plus fa-1x " aria-hidden="true"></i></a>
+          </li>
+          <li class="nav-item col-3 " >
+            <a class="nav-link" data-toggle="tab" href="#deletebtn"><i class="fa fa-eraser fa-1x " aria-hidden="true"></i></a>
+          </li>
+          <li class="nav-item col-3 " >
+            <a class="nav-link" data-toggle="tab" href="#mergebtn"><i class="fa fa-clone fa-1x " aria-hidden="true"></i></a>
+          </li>
+          <li class="nav-item col-3 " >
+            <a class="nav-link" data-toggle="tab" href="#cutbtn"><i class="fa fa-scissors fa-1x " aria-hidden="true"></i></a>
+          </li>
+          <li class="nav-item col-3 " >
+            <a class="nav-link" data-toggle="tab" href="#tagbtn"><i class="fa fa-tag fa-1x " aria-hidden="true"></i></a>
+          </li>
+          <li class="nav-item col-3 " >
+            <a class="nav-link" data-toggle="tab" href="#selectbtn"><i class="fa fa-hand-pointer-o fa-1x " aria-hidden="true"></i></a>
+          </li>
+          <li class="nav-item col-3 " >
+            <a class="nav-link" data-toggle="tab" href="#submitbtn"><i class="fa fa-upload fa-1x " aria-hidden="true"></i></a>
+          </li>
+        </ul>
+
+        <div class="row tab-content ">
+          <div id="infobtn" class="col-12 Popup-content tab-pane active" > 
+            The <b> Information </b> is where you can observe the progress of your segmentation, it has details of the blocks made, or the params used such as the granularity. 
+          </div>
+
+          <div id="addbtn" class="col-12 Popup-content tab-pane fade" > 
+            The <b> New block </b> action is used to create new blocks. Just click the button to activate it and click a section on the page to create the new block. You can guide yourself using the highlight guide.
+          </div>
+
+          <div id="deletebtn" class="col-12 Popup-content tab-pane fade" > 
+            The <b> Delete block </b> action is used to delete a block. Just click the button to activate it and click on the blocks you want to delete.
+          </div>
+
+          <div id="mergebtn" class="col-12 Popup-content tab-pane fade" > 
+            The <b> Merge block </b> action is used to combine two blocks into one. Just click the button to activate it and then click the two blocks blocks you want to combine. 
+          </div>
+
+          <div id="cutbtn" class="col-12 Popup-content tab-pane fade" > 
+            The <b> Cut block </b> action is used to separate two blocks that are overlapping eachother. Just click the button to activate it, then, click the block you want to "preservate" over the other and later, click the second block (this one will be cut). 
+          </div>
+
+          <div id="tagbtn" class="col-12 Popup-content tab-pane fade" > 
+            The <b> Tag block </b> action is used to add a tag to a block. Just click the button to activate it, then click the block you want to identify and choose from the list of tags.  
+          </div>
+
+          <div id="selectbtn" class="col-12 Popup-content tab-pane fade" > 
+            The <b> Select block </b> action is used to show a block's details. Just click the button to activate it, then click any block to show its details.
+          </div>
+
+          <div id="submitbtn" class="col-12 Popup-content tab-pane fade" > 
+            The <b> Submit segmentation </b> action is used to send your segmentation details to the server. Just click the button to send the segmentation, if there's any error an alert should popup.
+          </div>
+
+        </div>
+
+      </div>
+      <hr>
+      <p id="p_credit" style="font-size: 0.8rem;" align="center"> For more information, visit the official MoB Repository website </p>
+    </div>
+    <!-- ----------------------------------------      END OF TABS       ------------------------------------------ -->
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+        <ul class="nav nav-tabs MainMenu">
+          <li class="nav-item col-sm-4">
+            <p id="leng_esp" class="nav-link leng" title="Español" style="margin-bottom: 0px;">ESPAÑOL</p>
+          </li>
+          <li class="nav-item col-sm-4" id= "score-tab-MoB" >
+            <p id="leng_eng" class="nav-link leng" title="English" style="margin-bottom: 0px;">ENGLISH</p>
+          </li>
+          <li class="nav-item col-sm-4">
+            <p id="leng_fran" class="nav-link leng" title="Français" style="margin-bottom: 0px;">FRANÇAIS</p>
+          </li>
+        </ul>
+    </div>
+  </div>
+
+<div id="mob_loading" hidden>
+  <span align="center"> <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i> <span>
+</div>
+
+</body>
+</html>

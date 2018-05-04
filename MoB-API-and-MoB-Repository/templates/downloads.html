@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+
+{% block title %} 
+    {% if error %}
+        ERROR FOUND
+    {% else %}
+        DOWNLOADS
+    {% endif %}
+{% endblock %}
+
+
+{% block content %}
+    {% if error %}
+        <div class="row">
+            <div class="alert alert-danger"> 
+                <h3> {{error}}</h3>
+            </div>
+        </div>
+    {% else %}
+        <div class="row mob-leng-en" hidden> <!-- content grid -->
+            <div class="col-xs-12">
+                <h3> MoB Project (Extension + API)</h3>
+                <p align="center"> Clone or download the source code directly from our repository HERE </p>
+            </div>
+            <hr>
+            <div class="col-xs-12">
+                <h3> Chrome's MoB Extension </h3>
+                <p align="center"> Download the <b>Zip</b> version <a href="{{url_for('get_mobext', name='mobextension.zip') }}" download > HERE</a> </p>
+                <p align="center" > Download the <b>CRX</b> version <a href="{{url_for('get_mobext', name='MoB-Extension.crx') }}" download> HERE </a></p>
+                <p align="center"> 
+                    <b>Note:</b> If you download the <b>CRX</b> version, all you have to do to install it is: <br> 
+                    1.- Open a new Chrome browser window and write in the url bar "chrome://extensions". <br>
+                    2.- Drag & Drop this files to this new window. <br>
+                    3.- Click 'Add' and that's it. 
+                </p> 
+            </div>
+        </div>
+        <div class="row mob-leng-es" hidden> <!-- content grid -->
+            <div class="col-xs-12">
+                <h3> Proyecto MoB (Extension + API)</h3>
+                <p align="center"> Clona o descarga el código fuente directamente desde nuestro repositorio AQUI </p>
+            </div>
+            <hr>
+            <div class="col-xs-12">
+                <h3> Extensión de MoB para Chrome  </h3>
+                <p align="center"> Descarga la versión en <b>Zip</b> desde <a href="{{url_for('get_mobext', name='mobextension.zip') }}" download> AQUI </a> </p>
+                <p align="center" > Descarga la versión en <b>CRX</b> desde <a href="{{url_for('get_mobext', name='MoB-Extension.crx') }}" download> AQUI </a> </p>
+                <p align="center"> 
+                    <b>Nota:</b> si descargas la version en <b>CRX</b>, todo lo que debes hacer para instalarlo es: <br> 
+                    1.- Abrir una nueva ventana en el explorador Chrome y escribir en la barra de url "chrome://extensions".<br>
+                    2.- Arrastra y suelta el archivo crx en esta ventana. <br>
+                    3.- Haz click en 'Add' y listo. 
+                </p> 
+            </div>
+        </div>
+        <div class="row mob-leng-fr" hidden> <!-- content grid -->
+            <div class="col-xs-12">
+                <h3> MoB Project (Extension + API)</h3>
+                <p align="center"> Clone or download the source code directly from our repository HERE </p>
+            </div>
+            <hr>
+            <div class="col-xs-12">
+                <h3> Chrome's MoB Extension </h3>
+                <p align="center"> Download the <b>Zip</b> version <a href="{{url_for('get_mobext', name='mobextension.zip') }}" download> HERE </a> </p>
+                <p align="center" > Download the <b>CRX</b> version <a href="{{url_for('get_mobext', name='MoB-Extension.crx') }}" download> HERE </a> </p>
+                <p align="center"> 
+                    <b>Note:</b> If you download the <b>CRX</b> version, all you have to do to install it is: <br> 
+                    1.- Open a new Chrome browser window and write in the url bar "chrome://extensions". <br>
+                    2.- Drag & Drop this files to this new window. <br>
+                    3.- Click 'Add' and that's it. 
+                </p> 
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+

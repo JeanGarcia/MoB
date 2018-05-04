@@ -1,0 +1,414 @@
+{% extends "layout.html" %}
+
+{% block title %} 
+    {% if error %}
+        ERROR FOUND
+    {% else %}
+        MOB API DOCUMENTATION
+    {% endif %}
+{% endblock %}
+
+
+{% block content %}
+    {% if error %}
+        <div class="row">
+            <div class="alert alert-danger"> 
+                <h3> {{error}}</h3>
+            </div>
+        </div>
+    {% else %}
+        <div class="row mob-leng-en" hidden> <!-- content grid -->
+         <div class=" col-xs-12"> 
+            <p> Lenguaje no disponible. </p>
+           </div>
+        </div>
+
+
+        <div class="row mob-leng-es" hidden> <!-- content grid -->
+            <div class=" col-xs-12"> 
+                <p class="mob-home-p">A continuación se presenta la sintaxis adecuada para solicitar los diferentes servicios de la API de MoB, junto con la lista de todos los posibles servicios y qué esperar de cada uno. Haga clic sobre algún servicio para observar los detalles.
+                </p>
+                <p class="mob-home-p"> <b> Nota: </b> Se presentará la descripción de los servicios y su forma de uso. Las respuestas del servicio consiste en un objeto JSON, todas las respuestas poseen un código, si el mismo posee un valor de <b style="color:green">“200”</b> significa que la petición se realizó de forma exitosa, en caso de ser <b style="color:red">“400”</b> es porque hubo un error.
+
+                </p> <br>
+            </div>
+
+            <div class=" col-xs-12"> 
+                <p class= "mob_q mob-home-p" onclick="$('.mob_a').hide(); $(this).siblings('.mob_a').slideDown()"> 
+                    1.- Registrar usuario.
+                </p>
+                <div class=" mob_a mob-home-p " hidden> 
+                    <p>Permite registrar a un usuario en el sistema.</p>
+
+                    <p><b> url: </b>  https://mob.ciens.ucv.ve/api/users  , <b> método: </b>  POST.</p>
+
+                    <p> <b> Ejemplo de objeto JSON de la petición: </b> </p>
+                    <pre> <code>
+obj = {
+    'email': 'juan@gmail.com',
+    'username': 'Juan','
+    'password': 'miclave123'
+}
+                    </code></pre>
+
+
+                    <p> <b> Ejemplo de respuesta: </b></p>
+                    <pre> <code>
+obj = {
+    'code':200, 
+    'msg':'The user has been registered succesfully'
+}
+                    </code></pre>
+<hr>
+                </div>
+           </div>
+            <div class=" col-xs-12"> 
+                <p class= "mob_q mob-home-p" onclick="$('.mob_a').hide(); $(this).siblings('.mob_a').slideDown()"> 
+                    2.- Iniciar sesión.
+                </p>
+                <div hidden class="mob_a mob-home-p"> 
+                    <p> Permite al usuario registrado (y activado) iniciar sesión en el sistema para hacer uso de sus funcionalidades. </p>
+
+                    <p> <b> url: </b> https://mob.ciens.ucv.ve/api/login  , <b> método: </b>  POST. </p>
+
+                    <p> <b> Ejemplo de objeto JSON de la petición: </b></p>
+<pre> <code>
+obj = {
+    'username': 'Juan',
+    'password': 'miclave123'
+}
+</code> </pre>
+
+                    <p> <b> Ejemplo de respuesta:  </b> </p>
+<pre> <code>
+obj = {
+    'code':200, 
+    'msg':'Welcome Juan!',
+    'username': 'Juan',
+    'name': 'Juan',
+    'lastname': 'Perez',
+    'email': 'juan@gmail.com'
+}
+</code></pre>
+<hr>
+                </div>
+           </div>
+            <div class=" col-xs-12"> 
+                <p class= "mob_q mob-home-p" onclick="$('.mob_a').hide(); $(this).siblings('.mob_a').slideDown()"> 
+                    3.- Cerrar sesión.
+                </p>
+                <div hidden class="mob_a mob-home-p"> 
+                <p>Permite al usuario identificado dentro del sistema salir del mismo. </p>
+
+                <p> <b> url: </b>  https://mob.ciens.ucv.ve/api/logout  , <b>método:</b>  GET.</p>
+
+                <p> <b> Ejemplo de respuesta: </b></p>
+<pre> <code>
+obj = {
+    'code':200, 
+    'msg':'you have been logged out'
+}
+</code></pre>
+<hr>
+                </div>
+           </div>
+            <div class=" col-xs-12"> 
+                <p class= "mob_q mob-home-p" onclick="$('.mob_a').hide(); $(this).siblings('.mob_a').slideDown()"> 
+                    4.- Recuperar contraseña.
+                </p>
+                <div hidden class="mob_a mob-home-p"> 
+                <p> Permite al usuario recuperar su contraseña en caso de extravío. </p>
+
+                <p> <b> url: </b>  https://mob.ciens.ucv.ve/api/recover  , <b> método:</b>  POST. </p>
+
+                <p> <b> Ejemplo de objeto JSON de la petición: </b></p>
+<pre> <code>
+obj = {
+'email': 'juan@gmail.com'
+}
+</code></pre>
+
+                <p> <b> Ejemplo de respuesta: </b></p>
+<pre> <code>
+obj = {
+    'code':200, 
+    'msg':'Your data has been sent to your email.'
+}
+</code></pre>
+<hr>
+                </div>
+           </div>
+            <div class=" col-xs-12"> 
+                <p class= "mob_q mob-home-p" onclick="$('.mob_a').hide(); $(this).siblings('.mob_a').slideDown()"> 
+                    5.- Cargar segmentación.
+                </p>
+                <div hidden class="mob_a mob-home-p"> 
+                <p> Este es uno de los servicios más importante del API pues representa la base de todo el sistema, permite cargar los resultados de una segmentación a la base de datos (y los datos de la página Web en caso de que sea la primera vez que se segmenta). </p>
+
+                <p> <b> url:</b>  https://mob.ciens.ucv.ve/api/recover  , <b> método:</b>  POST. </p>
+
+                <p> <b> Ejemplo de objeto JSON de la petición: </b> </p>
+<pre> <code>
+obj = {
+    'collection': 'col_name', (opcional)
+    'category': 'cat_name', (opcional)
+    'capture': 'http://www.url_imagen_representativa.jpg', (opcional)
+    'title': 'page_title', (opcional)
+    'url': 'http://www.mipagina.com',
+    'width': 800, (px | opcional)
+    'height': 1600, (px |opcional)
+    'gran': 5, 
+    'blocks': BlocksObj,**
+    'browser': 'nombre_browser',
+    'seg_type': 'tipo_algoritmo'
+}
+</code></pre>
+
+    <b>Leyenda:</b><br>
+        <i>collection:</i> la colección a la que pertenece la página. <br>
+        <i>category:</i> la categoría de la página. <br>
+        <i>capture:</i> la url de la imagen que representa la página.<br> 
+        <i>title:</i> el título de la página.<br>
+        <i>url:</i> la url de la página.<br>
+        <i>width:</i> el ancho de la página, en pixeles.<br>
+        <i>height:</i> el alto de la página, en pixeles.<br>
+        <i>gran:</i> la granularidad de la segmentación.<br>
+        <i>blocks:</i> el objeto JSON con los bloques de la segmentación (en el siguiente bloque de código se describe su estructura.)<br>
+        <i>browser:</i> el navegador usado.<br>
+        <i>seg_type:</i> el nombre del algoritmo aplicado.
+
+<pre> <code>
+** BlocksObj : {
+    meta : {
+        'cantblock': 12, 
+        'areablock': 2000
+    }
+    block: [ 
+        {'id_block': 'id1', 'tag': 'etiqueta1', 'left': 10, 'top': 20, 'width': 200, 'height': 100, 'words': 50, 'elems': 4, 'gran': 5, 'dom': {DomElemsObj ***}}, 
+        .... 
+    ]
+}
+</code> </pre>
+
+<p> <b>Leyenda:</b> <br>
+<i>cantblock:</i> es la cantidad de bloques presentes en la segmentación. <br>
+<i>areablock:</i> es el área total de todos los bloques sumadas, en pixeles.<br>
+<i>id_block:</i> el id del bloque.<br>
+<i>tag:</i> la etiqueta del bloque.<br>
+<i>left:</i> la posición left del bloque, en pixeles.<br>
+<i>top:</i> la posición top del bloque, en pixeles.<br>
+<i>width:</i> el ancho del bloque, en pixeles.<br>
+<i>height:</i> altura del bloque, en pixeles.<br>
+<i>words:</i> cantidad de palabras dentro del bloque.<br>
+<i>elems:</i> cantidad de elementos DOM dentro del bloque.<br>
+<i>gran:</i> indica la granularidad del bloque.<br>
+<i>dom:</i> un objeto JSON que posee los elementos del dom dentro del bloque (en el siguiente bloque de código se describe su estructura.)
+
+</p>
+
+<pre> <code>
+*** DomElemObj: {
+    'meta': { 
+        'atri1' : 'valor1',
+        'atri2' :'valor2',
+        ...
+    },
+    'content': [
+        { 'meta': {}, 'content': ...  }
+        ....
+    ]
+}
+</code></pre>
+
+<p>
+<b>Leyenda:</b><br>
+<i>meta:</i> es un JSON con todos los atributos del elemento DOM.<br>
+<i>content:</i> es una lista con el mismo formato de dato que DOMElemObj pero aplicado a los hijos del elemento DOM, recursivamente.
+</p>
+
+<p> <b> Ejemplo de respuesta: </b></p>
+<pre><code>
+obj = {
+    'code':200, 
+    'msg':'upload completed successfully"
+}
+</pre></code>
+<hr>
+                </div>
+           </div>
+            <div class=" col-xs-12"> 
+                <p class= "mob_q mob-home-p" onclick="$('.mob_a').hide(); $(this).siblings('.mob_a').slideDown()"> 
+                    6.- Obtener vista previa de segmentación.
+                </p>
+                <div hidden class="mob_a mob-home-p"> 
+                    <p> Devuelve un HTML con un canvas donde se dibujan las figuras y etiquetas de los bloques segmentados para una segmentación en específico. <b> p_id </b> indica el id de la segmentación, <b> zoom </b> el nivel de zoom que se desee del canvas (4 es buena opción).</p> 
+
+                    <p> <b>url:</b>  https://mob.ciens.ucv.ve/api/segpreview/p_id/zoom  , <b>método:</b>  GET. </p>
+
+                    <hr>
+                </div>
+           </div>
+            <div class=" col-xs-12"> 
+                <p class= "mob_q mob-home-p" onclick="$('.mob_a').hide(); $(this).siblings('.mob_a').slideDown()"> 
+                    7.- Obtener lista de colecciones.
+                </p>
+                <div hidden class="mob_a mob-home-p"> 
+                    <p> Permite obtener una lista con los nombres de las colecciones y categorías de éstas existentes en la base de datos del sistema. </p>
+
+                    <p> <b> url:</b>  https://mob.ciens.ucv.ve/api/getcollections  , <b> método:</b>  GET. </p>
+
+                    <p> <b> Ejemplo de respuesta: </b></p>
+<pre><code>
+obj = {
+    'code':200, 
+    "data": [
+        [1(id), "Col_name1", "Cat1, Cat2, Cat3"],
+        [2(id), "Col_name2", "Cat1, Cat2"]
+        ...
+    ]
+} 
+</code></pre>
+<hr>
+                </div>
+           </div>
+            <div class=" col-xs-12"> 
+                <p class= "mob_q mob-home-p" onclick="$('.mob_a').hide(); $(this).siblings('.mob_a').slideDown()"> 
+                    8.- Obtener lista de etiquetas.
+                </p>
+                <div hidden class="mob_a mob-home-p"> 
+                <p> Permite obtener una lista con los nombres de las etiquetas existentes en la base de datos del sistema.</p>
+
+                <p> <b>url:</b>  https://mob.ciens.ucv.ve/api/gettags  , <b>método:</b>  GET.</p>
+
+                <p> <b> Ejemplo de respuesta: </b></p>
+<pre><code>
+obj = {
+    'code':200, 
+    "data": [
+        [1(id), "tag_name1", "desc_esp","desc_eng", "desc_fra" ],
+        [4(id), "tag_name2", "desc_esp","desc_eng", "desc_fra" ]
+        ...
+    ]
+}
+</code></pre>
+<hr>
+                </div>
+           </div>
+            <div class=" col-xs-12"> 
+                <p class= "mob_q mob-home-p" onclick="$('.mob_a').hide(); $(this).siblings('.mob_a').slideDown()"> 
+                    9.- Obtener lista de puntajes globales.
+                </p>
+                <div hidden class="mob_a mob-home-p"> 
+                <p> Permite obtener una lista con los mejores puntajes en cada una de las granularidades de una página Web específica.</p>
+
+                <p> <b>url:</b>  https://mob.ciens.ucv.ve/api/globalscore , <b>método:</b>  POST.</p>
+
+                <p> <b>Ejemplo de objeto JSON de la petición:</b></p> 
+<pre><code>
+obj = {
+    'url': 'http://www.asamplewebpage.com'
+}
+</code></pre>
+
+                <p> <b>Ejemplo de respuesta: </b></p>
+<pre><code>
+obj = {
+    'code':200, 
+    'data': [
+        {'username': 'Juan' , 'score': 10 },
+        {'username': '----' , 'score': 0 }
+        ...
+    ]
+}
+</code></pre>
+
+<p> <b>Nota:</b> dependiendo de la posición del json dentro del arreglo, es su granularidad, en el ejemplo, Juan tuvo una puntuación de 10 en su segmentación con granularidad 0. Mientras que nadie ha segmentado la página en su granularidad 1.</p>
+ <hr>
+                </div>
+           </div>
+            <div class=" col-xs-12"> 
+                <p class= "mob_q mob-home-p" onclick="$('.mob_a').hide(); $(this).siblings('.mob_a').slideDown()"> 
+                    10.- Obtener lista de puntajes individuales.
+                </p>
+                <div hidden class="mob_a mob-home-p"> 
+                <p>Permite obtener una lista con los puntajes en cada una de las granularidades de una página Web específica para un usuario determinado.</p>
+
+                <p> <b> url:</b>  https://mob.ciens.ucv.ve/api/userscore , <b>método:</b>  POST.</p>
+
+                <p> <b> Ejemplo de objeto JSON de la petición: </b></p>
+<pre> <code>
+obj = {
+    'url': 'http://www.asamplewebpage.com',
+    'username': 'Juan'
+}
+</code></pre>
+
+                <p> <b> Ejemplo de respuesta: </b></p>
+<pre><code>
+obj = {
+    'code':200, 
+    'data': [0,10,0,2,0,0,0,0,0,0,0]
+}
+</code></pre>
+
+<p> <b>Nota:</b> dependiendo de la posición dentro del arreglo, es el puntaje obtenido en una granularidad específica, en el ejemplo, Juan tuvo una puntuación de 10 en su segmentación con granularidad 1, y un puntaje de 2 en la granularidad 3.</p>
+<hr>
+
+                </div>
+           </div>
+            <div class=" col-xs-12"> 
+                <p class= "mob_q mob-home-p" onclick="$('.mob_a').hide(); $(this).siblings('.mob_a').slideDown()"> 
+                    11.- Obtener página Web en formato WARC.
+                </p>
+                <div hidden class="mob_a mob-home-p"> 
+<p> Devuelve la información de una página Web en formato WARC (Web ARChive). <p>id</p> indica el id de la página Web.</p>
+
+<p><b>url:</b>  https://mob.ciens.ucv.ve/api/pa:id.warc.gz , <b>método:</b>  GET.</p>
+<hr>
+                </div>
+           </div>
+            <div class=" col-xs-12"> 
+                <p class= "mob_q mob-home-p" onclick="$('.mob_a').hide(); $(this).siblings('.mob_a').slideDown()"> 
+                    12.- Obtener segmentación en formato JSON.
+                </p>
+                <div hidden class="mob_a mob-home-p"> 
+<p>Retorna un JSON con todos los datos de una segmentación en específico. <b>id</b> indica el id de la segmentación.</p>
+
+<p> <b>url:</b>  https://mob.ciens.ucv.ve/api/seg:id.js , <b>método:</b>  GET.</p>
+ <hr>
+                </div>
+           </div>
+            <div class=" col-xs-12"> 
+                <p class= "mob_q mob-home-p" onclick="$('.mob_a').hide(); $(this).siblings('.mob_a').slideDown()"> 
+                    13.- Obtener segmentación en formato MoB HTML.
+                </p>
+                <div hidden class="mob_a mob-home-p"> 
+<p> Dada una segmentación determinada, retorna un HTML con la información que se capturó momentos antes de enviar la segmentación, es decir, el HTML original de la página Web modificado por la herramienta MoB tras realizar la segmentación. <b>id</b> indica el id de la segmentación.</p>
+
+<p> <b>url:</b>  https://mob.ciens.ucv.ve/api/seg:id_mob.html , <b>método:</b>  GET. </p>
+<hr>
+                </div>
+           </div>
+            <div class=" col-xs-12"> 
+                <p class= "mob_q mob-home-p" onclick="$('.mob_a').hide(); $(this).siblings('.mob_a').slideDown()"> 
+                    14.- Obtener segmentación en formato V-PRIMA.
+                </p>
+                <div hidden class="mob_a mob-home-p"> 
+<p>Retorna todos los datos de una segmentación específica en formato V-PRIMA, el formato consta de un XML donde se especifican los bloques existentes en la segmentación y los links, imágenes y textos existentes dentro de éstos. <b>id</b> indica el id de la segmentación.</p>
+
+<p> <b>url:</b>  https://mob.ciens.ucv.ve/api/seg:id_vprima.xml , <b>método:</b>  GET.</p>
+<hr>
+                </div>
+           </div>
+        </div>
+        
+        <div class="row mob-leng-fr" hidden> <!-- content grid -->
+         <div class=" col-xs-12"> 
+            <p> Lenguaje no disponible. </p>
+           </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+
+

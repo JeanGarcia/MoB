@@ -1,0 +1,28 @@
+
+INSTALL:
+
+pip install bs4
+
+CHANGE :
+
+Rutas absolutas.
+
+
+-------------- COSAS POR HACER  ---------------
+- - - - - - - - - - - - - -
+
+json_obj { 'url', 'gran', 'blocks' *, 'browser', 'seg_type' }
+--------
+* blocks : {
+	meta : {'cantblock', 'areablock'}
+	block: [ {'id', 'tag', 'left', 'top', 'width', 'height', 'words', 'elems', }, .... ]
+}
+
+
+--------------------
+ VISTAS:
+
+-TUTORIALS:   
+Abanico
+Videos O Intructivos de como usar la extension, navegar por el repositorio.
+

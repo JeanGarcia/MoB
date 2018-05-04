@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %} 
+    SEARCH RESULTS
+{% endblock %}
+
+{% block content %}
+    {% if error %}
+        <div class="row">
+            <div class="alert alert-danger"> 
+                <h3> {{error}}</h3>
+            </div>
+        </div>
+    {% else %}
+        <div class="row ">
+            {% for page in data %}
+               <a id="thumb{{page.id}}" class=" col-xs-12 col-md-4 thumb-img img-cont" href="{{ url_for('get_pageinfo', page=page.id) }}"> <!-- thumb -->
+                    <img title="{{page.title}}" class="img-responsive" src="{{ page.capture }}" />
+                     <div id="veil-thumb{{page.id}}" class="overlay">
+                        <div class="text"><marquee direction="left" speed="normal" behavior="loop">{{page.title}}</marquee></div>
+                      </div>
+                </a>  
+            {% endfor %}
+        </div>
+    {% endif %}    
+{% endblock %}

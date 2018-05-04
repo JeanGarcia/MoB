@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block title %} 
+    {% if error %}
+        ERROR FOUND
+    {% else %}
+        SUCCESS!
+    {% endif %}
+{% endblock %}
+
+
+{% block content %}
+    {% if error %}
+        {{super()}}
+    {% else %}
+        <div class="alert alert-success"> 
+            <h3> {{msg}}</h3>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block alert %}
+    {% if error %}
+        <div class="alert alert-danger"> 
+            <h3> {{error}}</h3>
+        </div>
+    {% else %}
+        {{ super() }}
+    {% endif %}
+{% endblock %}

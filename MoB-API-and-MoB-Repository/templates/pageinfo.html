@@ -1,0 +1,296 @@
+{% extends "layout.html" %}
+
+{% block head %}
+
+{% endblock %}
+
+
+{% block title %} 
+        GENERAL INFO
+{% endblock %}
+
+{% block breadcrumbs %}
+    {% if error %}
+        <li><a href="{{ url_for('get_collections') }}" >Collections</a></li>
+        <li><a href="{{ url_for('get_categories', collection=co) }}" >{{co}}</a></li>
+        <li><a href="{{ url_for('get_webpages', collection=co, category=ca) }}">{{ca}}</a></li>
+    {% else %}
+        <li><a href="{{ url_for('get_collections') }}" >Collections</a></li>
+        <li><a href="{{ url_for('get_categories', collection=co) }}" >{{co}}</a></li>
+        <li><a href="{{ url_for('get_webpages', collection=co, category=ca) }}">{{ca}}</a></li>
+        <li><a href="{{ url_for('get_pageinfo', page=pa) }}" class="current">{{page.title}}</a></li>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% if error %}
+        <div class="row">
+            <div class="alert alert-danger"> 
+                <h3> {{error}}</h3>
+            </div>
+        </div>
+    {% else %}
+
+ 
+
+        <div class="row" align="center">
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-5 ">
+                {% if rol == 1 %}
+                    <a  id="del_page_btn" class="col-xs-12 btn btn-danger white" data-mob_url ="{{url_for('del_webpage', id=pa, col=co, ca=ca)}}" onclick="mob_delete('Are you sure you want to delete this web page? it cannot be reverted and it will delete all the segmentations associated','#del_page_btn')" > <!-- thumb -->
+                        <i class="fa fa-trash"> </i>
+                    </a>
+                {% endif %}
+                <table class=" table table-striped">
+                    <tbody>
+
+                        <tr>
+                            <th scope="row"> URL: </th> <td> {{page.url}} </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"> Title: </th> <td> {{page.title}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row"> Collection: </th> <td>  {{co}} </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"> Category: </th> <td>  {{ca}} </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"> Width: </th> <td>  {{page.width}} </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"> Height: </th> <td>  {{page.height}} </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                    <a  class="col-xs-12 btn mob-download-button" href ="{{url_for('get_listsegpage', id=pa, gran = 'all')}}" > 
+                        Ground Truth Segmentations's List 
+                    </a>
+                    <br/><br/>
+                    <a  class="col-xs-12 btn mob-download-button" href ="{{url_for('get_warcformat', id=pa)}}" download> 
+                        Download Web Page (WARC Format)
+                    </a>
+            </div>
+            <div class="col-md-5 ">
+                <a href="{{page.url}}" title="{{page.title}}" target="_blank"> <img title="{{page.title}}" class="img-responsive" src="{{ page.capture }}" /> </a>
+            </div>
+            <div class="col-md-1">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 ">
+                <h2 class="soft-blue nospace-bot"> GRANULARITIES</h2>
+                <p class="soft-blue italic tiny " align="center"> (Click on a granularity and select the algorithm) </p>
+            </div>
+        </div>
+
+        <div id="granularity" class="row" > <!-- content grid -->
+            <div class="col-xs-1">
+            </div>
+            <div class="col-xs-10" >
+                <div class="row" >
+                    <div class="col-xs-11 col-xs-offset-1" >
+
+                    {% for x in range(11) %}
+
+                        {% if list[x] == 0 %}
+                           <a class="col-xs-12 col-md-1 btn btn-default white bg-soft-blue thumb granularity disabled" data-gran= "{{x}}" href="#algorithm{{x}}"> <!-- thumb -->
+                                {{x}}
+                            </a>
+                        {% else %}
+                           <a class="col-xs-12 col-md-1 btn btn-default white bg-soft-blue thumb granularity" data-gran= "{{x}}" href="#algorithm{{x}}"> <!-- thumb -->
+                                {{x}}
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-1">
+            </div>
+        </div>
+
+    {% for a in range(11) %}
+
+        {% if list[a] == 0 %} 
+
+        {% else %}
+
+            <div id="algorithm{{a}}" class="row group-alg" hidden>
+                <div class="col-xs-1">
+                </div>
+                <div class="col-xs-10">
+                    <div class="row">
+
+                    {% for alg in list[a]['segs'] %}
+                        {% if alg.seg_type == 'mob' %}
+                       <a class="col-xs-12 col-md-3 btn btn-default soft-blue bg-white thumb algorithm" href="#seg-info-mob{{a}}" data-type="mob"> <!-- thumb -->
+                            <h4 class="nospace-bot"> GT </h4>
+                            <p class="italic xs-tiny" align="center"> (Ground-truth) </p>
+                        </a>
+                        {% elif alg.seg_type == 'bom' %}
+                        <a class="col-xs-12 col-md-3 btn btn-default soft-blue bg-white thumb algorithm" href="#seg-info-bom{{a}}" data-type="bom"> <!-- thumb -->
+                            <h4 class="nospace-bot"> BoM </h4>
+                            <p class="italic xs-tiny" align="center"> (Block-o-Matic) </p>
+                        </a>
+                        {% elif alg.seg_type == 'jvips' %}
+                       <a class="col-xs-12 col-md-3 btn btn-default soft-blue bg-white thumb algorithm" href="#seg-info-jvips{{a}}" data-type="jvips"> <!-- thumb -->
+                            <h4 class="nospace-bot"> JVIPS </h4>
+                            <p class="italic xs-tiny" align="center"> (JavaVIPS) </p>
+                        </a>
+                        {% elif alg.seg_type == 'vips' %}
+                       <a class="col-xs-12 col-md-3 btn btn-default soft-blue bg-white thumb algorithm" href="#seg-info-vips{{a}}" data-type="vips"> <!-- thumb -->
+                            <h4 class="nospace-bot"> VIPS </h4>
+                            <p class="italic xs-tiny" align="center"> (MS-VIPS) </p>
+                        </a>
+                        {% endif %}
+                    {% endfor %}
+                    </div>
+                </div>
+                <div class="col-xs-1">
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+
+    {% for a in range(11) %}
+
+        {% if list[a] == 0 %}
+
+        {% else %}
+            {% for seg in list[a]['segs'] %}
+                <div id="seg-info-{{seg.seg_type}}{{a}}" class="row seg-info" hidden>
+                    <div class="col-xs-1">
+                    </div>
+                    <div class="col-xs-10">
+                        <div class="row seg-info-detail">
+                            <div class="col-xs-12 table-responsive" align="center">
+                                <table class="table table-striped tabular">
+                                                <tbody>
+                                                {% if seg.mob_status != 'best' %}  
+                                                    <tr class="tabular-text">
+                                                        <td><b>Browser:</b></td><td>{{seg.mob_browser}}</td>
+                                                    </tr>
+                                                {% endif %}
+                                                {% if seg.seg_type == 'mob' %}  
+                                                    <tr class="tabular-text">
+                                                        <td><b>Score:</b></td><td>{{seg.mob_score}}</td>
+                                                    </tr>
+                                                {% endif %}                                    
+                                                <tr class="tabular-text">
+                                                    <td><b>Blocks count:</b></td><td> {{seg.mob_blocks.meta.cantblock}}</td>
+                                                </tr>
+                                                <tr class="tabular-text">
+                                                    <td><b>Elements count:</b></td><td>0</td>
+                                                </tr>
+                                                <tr class="tabular-text">
+                                                    <td><b>Word count:</b></td><td>0</td>
+                                                </tr>
+                                                <tr class="tabular-text">
+                                                    <td><b>Area:</b></td><td>{{seg.mob_blocks.meta.areablock}}px2</td>
+                                                </tr>    
+                                                <tr class="tabular-text">
+                                                    <td><b>Submitted on:</b></td><td>{{seg.mob_date}}</td>
+                                                </tr>
+                                                <tr class="tabular-text">
+                                                    <td><b>From:</b></td><td><a href="{{url_for('get_userinfo', user=seg.username)}}" target="_blank">{{seg.username}} </a></td>
+                                                </tr>
+                                                <tr class="tabular-text">
+                                                    <td><b>Granularity:</b></td><td> {{seg.mob_gran}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                            </div>
+                            <div class="col-xs-12 table-responsive" align="center">
+                                        <table  class=" table tabular table-bordered" >
+
+                                            <tbody>
+                                                <tr align="center" class="tabular-header">
+                                                    <td rowspan="2"><b>BId</b></td>
+                                                    <td colspan="4"><b>Block geometry</b></td>
+                                                    <td rowspan="2"><b>Elements</b></td>
+                                                    <td rowspan="2"><b>Words</b></td>
+                                                    <td rowspan="2"><b>Tag</b></td>
+                                                    <td rowspan="2"><b>Block Gran</b></td>
+                                                </tr>
+                                                <tr class="tabular-header">
+                                                    <td align="center"><b>x</b></td>
+                                                    <td align="center"><b>y</b></td>
+                                                    <td align="center"><b>w</b></td>
+                                                    <td align="center"><b>h</b></td>
+                                                </tr>
+
+                                        {%  for block in seg.mob_blocks.block %}
+                                                <tr align="center" class="tabular-text">
+                                                    <td>G{{block.id[10:]}}</td>
+                                                    <td>{{block.left}}</td>
+                                                    <td>{{block.top}}</td>
+                                                    <td>{{block.width}}</td>
+                                                    <td>{{block.height}}</td>
+                                                    <td>{{block.elems}}</td>
+                                                    <td>{{block.words}}</td>
+                                                    <td>{{block.tag}}</td>
+                                                    <td>{{block.gran}}</td>
+                                                </tr>
+
+                                        {% endfor %}
+                                            </tbody>
+                                            </table>
+                                            <br/> <br/>
+                                </div>
+                            </div>
+                            <div class="row">
+                            <div class="col-md-8" align="center">
+                                   <script type="text/javascript">
+                                    
+                                    var blocks_{{seg.id_details}} = [
+                                        {% for b in seg.mob_blocks.block %}
+                                            [{{b.left}}, {{b.top}}, {{b.width}}, {{b.height}}, 'G{{b.id[10:]}}: {{b.tag}}'],
+                                        {% endfor %}
+                                    ];
+                                </script>
+                                <canvas id="segpreview_{{seg.id_details}}" width="450" height="450" > </canvas>
+
+                               <script type="text/javascript">
+                                    drawpreview('segpreview_{{seg.id_details}}',blocks_{{seg.id_details}},3,{{page.width}}, {{page.height}});
+                               </script>
+                           </div>
+                            <div class="col-md-4" align="center">
+                                {% if seg.mob_status == 'best' %}       
+                                <p class="mob-leng-en" hidden> <bold style="color:red">Note: </bold> This is the automatic best segmentation based on all the segmentations existing in the Ground Truth, to see all the segmentations made by the users check the "Ground Truth Segmentations's List" Above. To see the <b>{{list[a]['gt']}}</b> segmentations used to create the best segmentation on this granularity click the button below. </p>
+                                <p class="mob-leng-es" hidden> <bold style="color:red">Nota: </bold> Esta es una segmentacion automatica creada a partir de todas las segmentaciones existentes en la Ground Truth, para ver todas las segmentaciones creadas por los usuarios clickea en el botón de: "Ground Truth Segmentations's List" Arriba. Para ver las <b>{{list[a]['gt']}}</b> segmentaciones usadas en crear la mejor segmentacion en esta granularidad, haga click en el botón de abajo.  </p>
+                                <p class="mob-leng-fr" hidden> <bold style="color:red">Note: </bold> This is the automatic best segmentation based on all the segmentations existing in the Ground Truth, to see all the segmentations made by the users check the "Ground Truth Segmentations's List" Above. To see the <b>{{list[a]['gt']}}</b> segmentations used to create the best segmentation on this granularity click the button below.   </p>
+                                <a  class="col-xs-12 btn mob-download-button" href ="{{url_for('get_listsegpage', id=pa, gran = seg.mob_gran)}}" > 
+                                    Ground Truth Of This Segmentation 
+                                </a>
+                                <br/> <br/> <br/>
+                                {% endif %}
+
+                                <p><b>Download Formats:</b></p>
+                                {% if seg.mob_status == 'best' %}
+                                    <a class="col-xs-6 btn mob-download-button" href="{{url_for('get_jsonformat',id=seg['id_details'])}}" download="MoBRep_seg{{seg['id_details']}}.js">JSON</a>
+                                    <a class="col-xs-6 btn mob-download-button" href="{{url_for('get_vprimaformat',id=seg['id_details'])}}" download="MoBRep_seg{{seg['id_details']}}_vprima.xml">VPRIMA</a>
+                                {% else %} 
+                                    <a class="col-xs-4 btn mob-download-button" href="{{url_for('get_jsonformat',id=seg['id_details'])}}" download="MoBRep_seg{{seg['id_details']}}.js">JSON</a>
+                                    <a class="col-xs-4 btn mob-download-button" href="{{url_for('get_vprimaformat',id=seg['id_details'])}}" download="MoBRep_seg{{seg['id_details']}}_vprima.xml">VPRIMA</a>
+                                    <a class="col-xs-4 btn mob-download-button" href="{{url_for('get_mobformat',id=seg['id_details'])}}" download="MoBRep_seg{{seg['id_details']}}_mob.html">MoB(HTML)</a>
+                                {% endif %}
+                                <br/>
+                                <br/>
+ 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-1">
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+
+    {% endif %}   
+{% endblock %}
