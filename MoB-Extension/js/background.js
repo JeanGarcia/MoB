@@ -5,7 +5,9 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 		chrome.tabs.executeScript({file: "js/lib/rectlib.js"}, function() {
 			chrome.tabs.executeScript({file: "js/lib/bomlib.js"}, function() {
 			   chrome.tabs.executeScript({file: "js/lib/pmanual2.js"}, function() {
+				   chrome.tabs.executeScript({file: "js/mob_leng.js"}, function() {
 
+					});
 				});
 			});
 		});

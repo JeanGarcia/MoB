@@ -19,6 +19,7 @@ var api_url = 'https://mob.ciens.ucv.ve';
 var MobPageCapture; // Data of the capture of the web page.
 var MobTags = []; // list of the HTML5 tags (name)
 var MobCollections = []; // list of Collections (name, categories)
+var data_leng;
 
 // ------------------------ FUNCTIONS -------------------------------
 // ------------------------------------------------------------------
@@ -39,7 +40,14 @@ chrome.extension.onMessage.addListener(function (request) {
 				window.resizeTo(mob_win_width, mob_win_height);
 			});
 			StartMenu(); 
+			// lenguage
+			leng = mob_readCookie('mob_leng');
 
+			if(leng) {
+				data_leng = mob_leng_s[leng];
+			}else {
+				data_leng = mob_leng_s['en'];
+			}
 		break;
 	}
 	return true;
@@ -63,14 +71,14 @@ var StartMenu = function() {
 						MobCollections = data.data;
 						// Creating the menu 
 						var menu = '<div id="MoB-Menu" class="MoB-tool MoB-span"><ul class="MoB-tool MoB-span" > \
-							<li class="start-MoB-item MoB-tool MoB-span" title="Information" id="infobutton"><i class="fa fa-info fa-2x MoB-tool MoB-span" aria-hidden="true"></i></li> \
-							<li class="MoB-item MoB-tool MoB-span" title="Insert new Blocks" id="insertbutton"><i class="fa fa-plus fa-2x MoB-tool MoB-span" aria-hidden="true"></i></li> \
-							<li class="MoB-item MoB-tool MoB-span" title="Delete Blocks" id="deletebutton"><i class="fa fa-eraser fa-2x MoB-tool MoB-span" aria-hidden="true"></i></li> \
-							<li class="MoB-item MoB-tool MoB-span" title="Merge Blocks" id="mergebutton"><i class="fa fa-clone fa-2x MoB-tool MoB-span" aria-hidden="true"></i></li> \
-							<li class="MoB-item MoB-tool MoB-span" title="Cut Blocks" id="cutbutton"><i class="fa fa-scissors fa-2x MoB-tool MoB-span" aria-hidden="true"></i></li> \
-							<li class="MoB-item MoB-tool MoB-span" title="Edit Block\'s tag" id="editbutton"><i class="fa fa-tag fa-2x MoB-tool MoB-span" aria-hidden="true"></i></li> \
-							<li class="MoB-item MoB-tool MoB-span" title="Select a Block" id="selectbutton"><i class="fa fa-hand-pointer-o fa-2x MoB-tool MoB-span" aria-hidden="true"></i></li> \
-							<li class="end-MoB-item MoB-tool" title="Submit Segmentation" id="submitbutton"><i class="fa fa-upload fa-2x MoB-tool MoB-span" aria-hidden="true"></i></li> \
+							<li class="start-MoB-item MoB-tool MoB-span" title="'+data_leng['a_info']+'" id="infobutton"><i class="fa fa-info fa-2x MoB-tool MoB-span" aria-hidden="true"></i></li> \
+							<li class="MoB-item MoB-tool MoB-span" title="'+data_leng['a_insert']+'" id="insertbutton"><i class="fa fa-plus fa-2x MoB-tool MoB-span" aria-hidden="true"></i></li> \
+							<li class="MoB-item MoB-tool MoB-span" title="'+data_leng['a_delete']+'" id="deletebutton"><i class="fa fa-eraser fa-2x MoB-tool MoB-span" aria-hidden="true"></i></li> \
+							<li class="MoB-item MoB-tool MoB-span" title="'+data_leng['a_merge']+'" id="mergebutton"><i class="fa fa-clone fa-2x MoB-tool MoB-span" aria-hidden="true"></i></li> \
+							<li class="MoB-item MoB-tool MoB-span" title="'+data_leng['a_cut']+'" id="cutbutton"><i class="fa fa-scissors fa-2x MoB-tool MoB-span" aria-hidden="true"></i></li> \
+							<li class="MoB-item MoB-tool MoB-span" title="'+data_leng['a_tag']+'" id="editbutton"><i class="fa fa-tag fa-2x MoB-tool MoB-span" aria-hidden="true"></i></li> \
+							<li class="MoB-item MoB-tool MoB-span" title="'+data_leng['a_select']+'" id="selectbutton"><i class="fa fa-hand-pointer-o fa-2x MoB-tool MoB-span" aria-hidden="true"></i></li> \
+							<li class="end-MoB-item MoB-tool" title="'+data_leng['a_submit']+'" id="submitbutton"><i class="fa fa-upload fa-2x MoB-tool MoB-span" aria-hidden="true"></i></li> \
 							</ul></div> \
 							<div id="Mob-infopanel" class="MoB-span MoB-scroll" hidden> </div> <div id="MoB-blockinfo" class="MoB-span" hidden> </div>';
 						document.body.insertAdjacentHTML("beforeend",menu);
@@ -87,7 +95,7 @@ var StartMenu = function() {
 			});
 
 	} else {
-		mob_modal("you are already running the segmentation tool",3);
+		mob_modal(data_leng['m_error1'],3);
 	}
 };
 
@@ -151,7 +159,7 @@ var mousedown = function (e) {
 				var flag = testmobautomerge(coords.left,coords.top,Math.round(box.width),Math.round(box.height));
 
 				if ( flag == 1 || flag == 3 ) {// there's tiny blocks
-					mob_modal(" All the tiny blocks inside the new one will dissappear, want to continue?.",0,
+					mob_modal(data_leng['m_msgtinyb'],0,
 						function(val) {
 							// it automerges all the tiny blocks and handles intersections
 							Mobautomerge(coords.left,coords.top,Math.round(box.width),Math.round(box.height));
@@ -259,7 +267,7 @@ var mousedown = function (e) {
 						var flag = testmobautomerge(x1,y1,x2,y2);
 
 						if ( flag == 1 || flag == 3 ) {// there's tiny blocks
-							mob_modal(" All the tiny blocks inside the new one will dissappear, want to continue?.",0,
+							mob_modal(data_leng['m_msgtinyb'],0,
 								function(val) {
 									// it automerges all the tiny blocks and handles intersections
 									Mobautomerge(x1,y1,x2,y2);
@@ -432,7 +440,7 @@ var mousedown = function (e) {
 			var aux = e.target.id;
 			if(/MobBlockId/.test(aux)) { 
 				var tag = e.target.dataset.mobtag;
-				mob_modal("Select the block's tag",1,
+				mob_modal(data_leng['m_seltag'],1,
 					function(val) { 
 						e.target.dataset.mobtag = val;
 						removealert(aux,1);
@@ -558,18 +566,15 @@ var infoaction = function () {
 		areacolor = "red";
 	}
 
-	var info = 	'<div align="center" style="font-size: 0.8em;" class="MoB-span"> <b class="MoB-span"> Legend </b> </br> '
-				+'<span style="color:rgb(90, 194, 236);" class="MoB-span"> <b class="MoB-span"> Accepted </b> </span> = The block is good. </br> '
-				+'<span style="color:rgb(255, 193, 7); " class="MoB-span"> <b class="MoB-span"> Warning </b> </span> = The block\'s granularity it\'s too high above the set one. </br>'
-				+'<span style="color:rgb(169, 68, 66);" class="MoB-span"> <b class="MoB-span"> Error </b> </span> = The block\'s granularity is not allowed, the block it\'s overlapping with another block, the block it\'s missing the tag. </div>'
-				+'<hr> <table id="Mob-detailinfo" class="table table-responsive table-sm MoB-span">' 
+	var info = 	'<div align="center" style="font-size: 0.8em;" class="MoB-span"> ' + data_leng['i_legend']
+				+'</div><hr> <table id="Mob-detailinfo" class="table table-responsive table-sm MoB-span">' 
 				+'<tbody MoB-span>'
-				+'<tr class="MoB-span"><th class="MoB-span">#Blocks: </th> <td class="MoB-span">'+ MobBlock.length  + '</td></tr>'
-				+'<tr class="MoB-span"><th class="MoB-span">Blocks total area: </th> <td class="MoB-span"><span class="MoB-span" style="color:'+ areacolor +'" title="'+actualareamm+'mm&sup2;">'+ Math.round(actualareapx*100/(document.body.clientWidth * document.body.clientHeight))  + '%</span></td></tr>'
-				+'<tr class="MoB-span"><th class="MoB-span">Granularity: </th><td class="MoB-span">'+ MobStatus.granu + '<button  class="MoB-span" id="granedit" >edit</button> </td></tr>'
-				+'<tr class="MoB-span"><th class="MoB-span">Divided in: </th> <td class="MoB-span">'+ MobGran[MobStatus.granu].h +' pieces </td></tr>'
-				+'<tr class="MoB-span"><th class="MoB-span">Min area for blocks: </th><td class="MoB-span">' + MobGran[MobStatus.granu].amblockmm +'mm&sup2; </td></tr>'
-				+'<tr class="MoB-span"><th class="MoB-span"> Total min area: </th><td class="MoB-span">' + MobStatus.amtotalmm +'mm&sup2; </td></tr>'
+				+'<tr class="MoB-span"><th class="MoB-span">'+data_leng['i_nblock']+'</th> <td class="MoB-span">'+ MobBlock.length  + '</td></tr>'
+				+'<tr class="MoB-span"><th class="MoB-span">'+data_leng['i_blockta']+'</th> <td class="MoB-span"><span class="MoB-span" style="color:'+ areacolor +'" title="'+actualareamm+'mm&sup2;">'+ Math.round(actualareapx*100/(document.body.clientWidth * document.body.clientHeight))  + '%</span></td></tr>'
+				+'<tr class="MoB-span"><th class="MoB-span">'+data_leng['i_gran']+'</th><td class="MoB-span">'+ MobStatus.granu + '<button  class="MoB-span" id="granedit" >'+data_leng['i_editg']+'</button> </td></tr>'
+				+'<tr class="MoB-span"><th class="MoB-span">'+data_leng['i_div']+'</th> <td class="MoB-span">'+ MobGran[MobStatus.granu].h +data_leng['i_div2'] +'</td></tr>'
+				+'<tr class="MoB-span"><th class="MoB-span">'+data_leng['i_blockma']+'</th><td class="MoB-span">' + MobGran[MobStatus.granu].amblockmm +'mm&sup2; </td></tr>'
+				+'<tr class="MoB-span"><th class="MoB-span">'+data_leng['i_totalma']+'</th><td class="MoB-span">' + MobStatus.amtotalmm +'mm&sup2; </td></tr>'
 				+'</tbody> </table> '
 				+'<hr> <div id="Mob-alerinfo" class="MoB-span" align="center">'+ genalerts() +' </div>';
 	
@@ -585,17 +590,22 @@ var submitaction = function () {
 	if(MobAction.active)
 		mob_toggle(MobAction.name);
 
-	checkgranularity ("final");
+	var gran_aux = checkgranularity ("final");
+
+	if (gran_aux == 1) { 
+		mob_modal(data_leng['m_error2'],3);
+		return 0;
+	}
 	var aux = checkalerts();
 
 	if (aux == 0) { 
-		mob_modal("There's still one or more errors you should fix before sending the segmentation, please click the 'I' button for more info.",3);
+		mob_modal(data_leng['m_error3'],3);
 		return 0;
 	} else if (aux == 1) {
-		mob_modal("Your segmentation will be sent with one or more warnings. Want to continue?",0, function(e) { 
+		mob_modal(data_leng['m_warn1'],0, function(e) { 
 
 			// --- COLLECTING DATA
-			mob_modal ("Select the collection on which your segmentation will be saved", 4, function (col,cat) {
+			mob_modal (data_leng['m_selcol'], 4, function (col,cat) {
 				MobLoadScreen(true); // loading screen
 				// --- SENDING DATA
 				mobRestore( function() {
@@ -608,7 +618,7 @@ var submitaction = function () {
 		});
 	} else if (aux == 2){
 
-		mob_modal ("Select the collection on which your segmentation will be saved", 4, function (col,cat) {
+		mob_modal (data_leng['m_selcol'], 4, function (col,cat) {
 			MobLoadScreen(true); // loading screen
 			// --- SENDING DATA
 				mobRestore( function() {
@@ -625,7 +635,7 @@ var graneditaction = function () {
 
 	var aux = MobStatus.granu;
 
-	mob_modal("Insert the new granularity from 0 to 10",2, 
+	mob_modal(data_leng['m_editgran'],2, 
 		function(val) {
 			var granu = Math.round(val);
 			if (granu > 10 || granu < 0 ) granu = aux;
@@ -650,7 +660,7 @@ var MobPost = function (url,data,call) {
 		var dataR = JSON.parse(this.responseText);
 		mob_modal(dataR.msg, 3);
 	} else if (this.readyState == 4 && this.status != 200) {
-		mob_modal("There has been an error while sending the data, please try again.", 3);
+		mob_modal(data_leng['m_error4'], 3);
 	}	
 	}; 
 
@@ -680,7 +690,7 @@ var MobGet = function (url,call) {
 	xhttp.timeout = 15000;	
 	xhttp.ontimeout = function () { 
 		console.log("Timed out in: "+ url ); 
-		mob_modal("there has been an error trying to load the tool, please close this window and try again",3);
+		mob_modal(data_leng['m_error5'],3);
 	}
 
 	xhttp.send();
@@ -740,9 +750,9 @@ var genalerts = function () {
 	for (var i=0; i<MobAlert.length; i++) {
 
 		if(MobAlert[i].type == "error") {
-			alerts = alerts + '<div class="mobalert-error" id="'+MobAlert[i].code+'" role="alert" > <strong>Error: </strong>'+ MobAlert[i].text +' </div>';
+			alerts = alerts + '<div class="mobalert-error" id="'+MobAlert[i].code+'" role="alert" > <strong>'+data_leng['al_error']+'</strong>'+ MobAlert[i].text +' </div>';
 		} else if (MobAlert[i].type == "warning") {
-			alerts = alerts + '<div class="mobalert-warning" id="'+MobAlert[i].code+'" role="alert" > <strong>Warning: </strong>'+ MobAlert[i].text +' </div>';
+			alerts = alerts + '<div class="mobalert-warning" id="'+MobAlert[i].code+'" role="alert" > <strong>'+data_leng['al_warning']+'</strong>'+ MobAlert[i].text +' </div>';
 		} 
 	}
 	return alerts;
@@ -888,15 +898,15 @@ var createblockinfo = function (index) {
 
 	var area = Math.round((MobBlock[index].area * 100) / (document.body.clientWidth * document.body.clientHeight));
 
-	var content = '<div class="MoB-infoblock-title MoB-span" > Block\'s  Info <span class="MoB-close MoB-span" onclick="document.getElementById(\'MoB-blockinfo\').hidden = true;">X</span></div>'
+	var content = '<div class="MoB-infoblock-title MoB-span" > '+data_leng['bi_title']+'<span class="MoB-close MoB-span" onclick="document.getElementById(\'MoB-blockinfo\').hidden = true;">X</span></div>'
 				+ '<div class="MoB-infoblock-table MoB-scroll MoB-span"> <table class="table table-responsive table-sm MoB-span"> <tbody class="MoB-span">'
 				+ '<tr class="MoB-span"> <th class="MoB-span"> Id:</th> <td class="MoB-span"> '+MobBlock[index].id+'</td></tr>'
-				+ '<tr class="MoB-span"> <th class="MoB-span">Area:</th> <td class="MoB-span">  '+pxtomm(MobBlock[index].width) * pxtomm(MobBlock[index].height)+'mm&sup2; ('+area+'%) </td></tr>'
-				+ '<tr class="MoB-span"> <th class="MoB-span">Position:</th> <td class="MoB-span">  ('+MobBlock[index].left+','+MobBlock[index].top+')</td></tr>'
-				+ '<tr class="MoB-span"> <th class="MoB-span">Width:</th> <td class="MoB-span">  '+pxtomm(MobBlock[index].width)+'mm </td></tr>'
-				+ '<tr class="MoB-span"> <th class="MoB-span">Height:</th> <td class="MoB-span">  '+pxtomm(MobBlock[index].height)+'mm </td></tr>'
-				+ '<tr class="MoB-span"> <th class="MoB-span">Tag:</th> <td class="MoB-span"> '+document.getElementById(MobBlock[index].id).dataset.mobtag+' </td></tr>'
-				+ '<tr class="MoB-span"> <th class="MoB-span">Granularity:</th> <td class="MoB-span"> '+MobBlock[index].gran+' </td></tr>'
+				+ '<tr class="MoB-span"> <th class="MoB-span">'+data_leng['bi_area']+'</th> <td class="MoB-span">  '+pxtomm(MobBlock[index].width) * pxtomm(MobBlock[index].height)+'mm&sup2; ('+area+'%) </td></tr>'
+				+ '<tr class="MoB-span"> <th class="MoB-span">'+data_leng['bi_pos']+'</th> <td class="MoB-span">  ('+MobBlock[index].left+','+MobBlock[index].top+')</td></tr>'
+				+ '<tr class="MoB-span"> <th class="MoB-span">'+data_leng['bi_w']+'</th> <td class="MoB-span">  '+pxtomm(MobBlock[index].width)+'mm </td></tr>'
+				+ '<tr class="MoB-span"> <th class="MoB-span">'+data_leng['bi_h']+'</th> <td class="MoB-span">  '+pxtomm(MobBlock[index].height)+'mm </td></tr>'
+				+ '<tr class="MoB-span"> <th class="MoB-span">'+data_leng['bi_t']+'</th> <td class="MoB-span"> '+document.getElementById(MobBlock[index].id).dataset.mobtag+' </td></tr>'
+				+ '<tr class="MoB-span"> <th class="MoB-span">'+data_leng['bi_g']+'</th> <td class="MoB-span"> '+MobBlock[index].gran+' </td></tr>'
 				+ '</tbody> </table> </div>';
 
 	panel.innerHTML = content;
@@ -948,7 +958,7 @@ var createblock = function (blocks) {
 			MobBlock.push({'id': id, 'gran': gran,'area': blocks[i].width * blocks[i].height, 'left':blocks[i].x, 'top': blocks[i].y, 'width': blocks[i].width, 'height': blocks[i].height, 'c_gran': '', 'c_tag': '', 'c_inter': ''});
 			MobBlockId++;
 
-			MobAlert.push( {'type':'error', 'text': 'The Block: '+id+ ' does not have a tag yet.', 'code': 'ET_'+id} );
+			MobAlert.push( {'type':'error', 'text': data_leng['al_b']+id+ data_leng['al_tag'], 'code': 'ET_'+id} );
 			MobBlock[MobBlock.length - 1].c_tag = 'ET_'+id;
 			document.getElementById(id).classList.add("mob-warning");
 
@@ -998,14 +1008,14 @@ var checkgranularity = function (op) {
 			if ( MobBlock[i].gran < (MobStatus.granu - 1) ) {
 				//  the gran of the block is not allowed.
 				var bareamm = pxtomm(MobBlock[i].width) * pxtomm(MobBlock[i].height) ;  // block area in mm2
-				MobAlert.push( {'type':'error', 'text': 'The Block: '+ MobBlock[i].id + ' does not reach the expected granularity ('+MobStatus.granu+'), it has a granularity of: '+MobBlock[i].gran+' and an area of: ' + bareamm + 'mm2. Expected a min area of: ' + MobGran[MobStatus.granu - g_s].amblockmm +'mm2, and a max area of: '+MobGran[MobStatus.granu + g_a].amblockmm+"mm2", 'code': 'EG_'+MobBlock[i].id} );
+				MobAlert.push( {'type':'error', 'text': data_leng['al_b']+ MobBlock[i].id + data_leng['al_gran1'] + MobStatus.granu+ data_leng['al_gran2'] +MobBlock[i].gran+ data_leng['al_gran3'] + bareamm + data_leng['al_gran4'] + MobGran[MobStatus.granu - g_s].amblockmm + data_leng['al_gran5'] +MobGran[MobStatus.granu + g_a].amblockmm+"mm2", 'code': 'EG_'+MobBlock[i].id} );
 				MobBlock[i].c_gran = 'EG_'+MobBlock[i].id;
 				document.getElementById(MobBlock[i].id).classList.add("mob-error-gran");
 				aux = true;
 			} else if (MobBlock[i].gran > (MobStatus.granu + 1 ) ) {
 				// gran is not ideal but allowed. 
 				var bareamm = pxtomm(MobBlock[i].width) * pxtomm(MobBlock[i].height) ;  // block area in mm2
-				MobAlert.push( {'type':'warning', 'text': 'The Block: '+ MobBlock[i].id + ' does not reach the expected granularity ('+MobStatus.granu+'), it has a granularity of: '+MobBlock[i].gran+' and an area of: ' + bareamm + 'mm2. Expected a min area of: ' + MobGran[MobStatus.granu - g_s].amblockmm +'mm2, and a max area of: '+MobGran[MobStatus.granu + g_a].amblockmm+"mm2", 'code': 'WG_'+MobBlock[i].id} );
+				MobAlert.push( {'type':'warning', 'text': data_leng['al_b']+ MobBlock[i].id + data_leng['al_gran1'] +MobStatus.granu+ data_leng['al_gran2'] +MobBlock[i].gran+ data_leng['al_gran3'] + bareamm + data_leng['al_gran4'] + MobGran[MobStatus.granu - g_s].amblockmm + data_leng['al_gran5'] +MobGran[MobStatus.granu + g_a].amblockmm+"mm2", 'code': 'WG_'+MobBlock[i].id} );
 				MobBlock[i].c_gran = 'WG_'+MobBlock[i].id;
 			}
 			blockarea += MobBlock[i].area;
@@ -1026,14 +1036,14 @@ var checkgranularity = function (op) {
 			if ( MobBlock[i].gran < (MobStatus.granu - 1) )  {
 				//  the gran of the block is not allowed.
 				var bareamm = pxtomm(MobBlock[i].width) * pxtomm(MobBlock[i].height) ;  // block area in mm2
-				MobAlert.push( {'type':'error', 'text': 'The Block: '+ MobBlock[i].id + ' does not reach the expected granularity ('+MobStatus.granu+'), it has a granularity of: '+MobBlock[i].gran+' and an area of: ' + bareamm + 'mm2. Expected a min area of: ' + MobGran[MobStatus.granu - g_s].amblockmm +'mm2, and a max area of: '+MobGran[MobStatus.granu + g_a].amblockmm+"mm2", 'code': 'EG_'+MobBlock[i].id} );
+				MobAlert.push( {'type':'error', 'text': data_leng['al_b']+ MobBlock[i].id + data_leng['al_gran1'] +MobStatus.granu+ data_leng['al_gran2'] +MobBlock[i].gran+ data_leng['al_gran3'] + bareamm + data_leng['al_gran4'] + MobGran[MobStatus.granu - g_s].amblockmm + data_leng['al_gran5'] +MobGran[MobStatus.granu + g_a].amblockmm+"mm2", 'code': 'EG_'+MobBlock[i].id} );
 				MobBlock[i].c_gran = 'EG_'+MobBlock[i].id;
 				document.getElementById(MobBlock[i].id).classList.add("mob-error-gran");
 
 			} else if ( MobBlock[i].gran > ( MobStatus.granu + 1 ) ) {
 				// gran is not ideal but allowed. 
 				var bareamm = pxtomm(MobBlock[i].width) * pxtomm(MobBlock[i].height) ;  // block area in mm2
-				MobAlert.push( {'type':'warning', 'text': 'The Block: '+ MobBlock[i].id + ' does not reach the expected granularity ('+MobStatus.granu+'), it has a granularity of: '+MobBlock[i].gran+' and an area of: ' + bareamm + 'mm2. Expected a min area of: ' + MobGran[MobStatus.granu - g_s].amblockmm +'mm2, and a max area of: '+MobGran[MobStatus.granu + g_a].amblockmm+"mm2", 'code': 'WG_'+MobBlock[i].id} );
+				MobAlert.push( {'type':'warning', 'text': data_leng['al_b']+ MobBlock[i].id + data_leng['al_gran1'] +MobStatus.granu+ data_leng['al_gran2'] +MobBlock[i].gran+ data_leng['al_gran3'] + bareamm + data_leng['al_gran4'] + MobGran[MobStatus.granu - g_s].amblockmm + data_leng['al_gran5'] +MobGran[MobStatus.granu + g_a].amblockmm+"mm2", 'code': 'WG_'+MobBlock[i].id} );
 				MobBlock[i].c_gran = 'WG_'+MobBlock[i].id;
 			}
 		}
@@ -1046,14 +1056,14 @@ var checkgranularity = function (op) {
 				if ( MobBlock[i].gran < (MobStatus.granu - 1) )  {
 					//  the gran of the block is not allowed.
 					var bareamm = pxtomm(MobBlock[i].width) * pxtomm(MobBlock[i].height) ;  // block area in mm2
-					MobAlert.push( {'type':'error', 'text': 'The Block: '+ MobBlock[i].id + ' does not reach the expected granularity ('+MobStatus.granu+'), it has a granularity of: '+MobBlock[i].gran+' and an area of: ' + bareamm + 'mm2. Expected a min area of: ' + MobGran[MobStatus.granu - g_s].amblockmm +'mm2, and a max area of: '+MobGran[MobStatus.granu + g_a].amblockmm+"mm2", 'code': 'EG_'+MobBlock[i].id} );
+					MobAlert.push( {'type':'error', 'text': data_leng['al_b']+ MobBlock[i].id + data_leng['al_gran1'] +MobStatus.granu+ data_leng['al_gran2'] +MobBlock[i].gran+ data_leng['al_gran3'] + bareamm + data_leng['al_gran4'] + MobGran[MobStatus.granu - g_s].amblockmm + data_leng['al_gran5'] +MobGran[MobStatus.granu + g_a].amblockmm+"mm2", 'code': 'EG_'+MobBlock[i].id} );
 					MobBlock[i].c_gran = 'EG_'+MobBlock[i].id;
 					document.getElementById(MobBlock[i].id).classList.add("mob-error-gran");
 
 				} else if ( MobBlock[i].gran > ( MobStatus.granu + 1 ) ) {
 					// gran is not ideal but allowed. 
 					var bareamm = pxtomm(MobBlock[i].width) * pxtomm(MobBlock[i].height) ;  // block area in mm2
-					MobAlert.push( {'type':'warning', 'text': 'The Block: '+ MobBlock[i].id + ' does not reach the expected granularity ('+MobStatus.granu+'), it has a granularity of: '+MobBlock[i].gran+' and an area of: ' + bareamm + 'mm2. Expected a min area of: ' + MobGran[MobStatus.granu - g_s].amblockmm +'mm2, and a max area of: '+MobGran[MobStatus.granu + g_a].amblockmm+"mm2", 'code': 'WG_'+MobBlock[i].id} );
+					MobAlert.push( {'type':'warning', 'text': data_leng['al_b']+ MobBlock[i].id + data_leng['al_gran1'] +MobStatus.granu+ data_leng['al_gran2'] +MobBlock[i].gran+ data_leng['al_gran3'] + bareamm + data_leng['al_gran4'] + MobGran[MobStatus.granu - g_s].amblockmm + data_leng['al_gran5'] +MobGran[MobStatus.granu + g_a].amblockmm+"mm2", 'code': 'WG_'+MobBlock[i].id} );
 					MobBlock[i].c_gran = 'WG_'+MobBlock[i].id;
 				}
  				return 0; // OK 
@@ -1587,10 +1597,10 @@ var Mobautomerge = function(left,top,width,height) {
 			} else { // It is an intersection.
 
 				if (!ask) {
-					mob_modal("There's an overlap between two or more blocks, you can use the Cut tool to solve this",3); 
+					mob_modal(data_leng['m_overlap'],3); 
 					ask = true;
 				}
-				MobAlert.push({'type':'error', 'text':'The block ' + 'MobBlockId'+ MobBlockId+ ' and the block '+ MobBlock[i].id +' are overlapping with eachother.', 'code': 'EI_'+'MobBlockId'+MobBlockId+MobBlock[i].id });
+				MobAlert.push({'type':'error', 'text':data_leng['al_b'] + 'MobBlockId'+ MobBlockId+  data_leng['al_overlap1'] + MobBlock[i].id + data_leng['al_overlap2'], 'code': 'EI_'+'MobBlockId'+MobBlockId+MobBlock[i].id });
 				document.getElementById(MobBlock[i].id).classList.add("mob-error");
 			} 
 		}
@@ -1624,6 +1634,19 @@ var dpcm = function() {
 
 var dpi = function() {
     return dppx() * MobRes.dpi;
+};
+
+var mob_readCookie = function (name) {
+    var nameEQ = encodeURIComponent(name) + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) === ' ')
+            c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0)
+            return decodeURIComponent(c.substring(nameEQ.length, c.length));
+    }
+    return null;
 };
 
 // ---------------- CASES OF INTERSECTIONS FUNCTIONS -----------------
@@ -1870,7 +1893,7 @@ function mob_modal(msg, op, func, col) {
 
 	var modal =  '<div class="MoB-modalbg MoB-span" id="mob_modal">'
 				+'<div class="MoB-modalmsg MoB-span">'
-				+'<h2 class="MoB-span"> MoB Message </h2>'
+				+'<h2 class="MoB-span">'+data_leng['m_message']+'</h2>'
 				+'<p class="MoB-span">'+msg+'</p>';
 
 	switch (op) {
@@ -1878,7 +1901,7 @@ function mob_modal(msg, op, func, col) {
 			modal += '<div class="MoB-span" align="center">'
 					+'<input class="MoB-span" type="hidden" id="mob_modalvar" value="true"/>'
 					+'<button class="MoB-span" type="button" id="mob_action">Ok</button>'
-					+'<button class="MoB-span" type="button" id="mob_cancel2">Cancel</button>'
+					+'<button class="MoB-span" type="button" id="mob_cancel2">'+data_leng['m_cancel']+'</button>'
 					+'</div></div></div>';
 		break;
 
@@ -1889,14 +1912,14 @@ function mob_modal(msg, op, func, col) {
 					modal +='<option class="MoB-span" value="'+MobTags[i][1]+'">'+MobTags[i][1]+'</option>';
 				}
 				modal += '</select> </div></br>'
-					+'<div class="MoB-span" align="center"><button class="MoB-span" type="button" id="mob_action">Ok</button> <button class="MoB-span" type="button" id="mob_cancel">Cancel</button></div>'
-					+'<p class="MoB-span"> If you wanna know more about these tags go to <a class="MoB-span" href="http://mob.ciens.ucv.ve/tagsinfo" target="_blank"> TAGS</a></div></div>';
+					+'<div class="MoB-span" align="center"><button class="MoB-span" type="button" id="mob_action">Ok</button> <button class="MoB-span" type="button" id="mob_cancel">'+data_leng['m_cancel']+'</button></div>'
+					+'<p class="MoB-span"> If you wanna know more about these tags go to <a class="MoB-span" href="http://mob.ciens.ucv.ve/tagsinfo" target="_blank"> TAGS</a> </p> </div></div>';
 
 		break;
 
 		case 2: // its a "enter a value" modal
 			modal += '<div class="MoB-span" align="center"><input class="MoB-input" type="text" id="mob_modalvar" pattern="\d*" maxlength="2" required> </br></br>'
-					+'<button class="MoB-span" type="button" id="mob_action">Ok</button> <button class="MoB-span" type="button" id="mob_cancel">Cancel</button></div>'
+					+'<button class="MoB-span" type="button" id="mob_action">Ok</button> <button class="MoB-span" type="button" id="mob_cancel">'+data_leng['m_cancel']+'</button></div>'
 					+'</div></div>';
 		break; 
 
@@ -1912,7 +1935,7 @@ function mob_modal(msg, op, func, col) {
 					modal +='<option class="MoB-span" value="'+i+'">'+MobCollections[i][1]+'</option>';
 				}
 				modal += '</select> </div></br>'
-					+'<div class="MoB-span" align="center"><button class="MoB-span" type="button" id="mob_action2">Select</button> </div>'
+					+'<div class="MoB-span" align="center"><button class="MoB-span" type="button" id="mob_action2">'+data_leng['m_select']+'</button> </div>'
 					+'</div></div>';
 
 		break;
@@ -1924,7 +1947,7 @@ function mob_modal(msg, op, func, col) {
 						modal +='<option class="MoB-span" value="'+cat[i]+'">'+cat[i]+'</option>';
 					}
 				modal += '</select> </div></br>'
-					+'<div class="MoB-span" align="center"><button class="MoB-span" type="button" id="mob_action">Select</button> </div>'
+					+'<div class="MoB-span" align="center"><button class="MoB-span" type="button" id="mob_action">'+data_leng['m_select']+'</button> </div>'
 					+'</div></div>';
 		break;
 	}

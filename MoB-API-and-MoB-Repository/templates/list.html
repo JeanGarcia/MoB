@@ -96,7 +96,7 @@
                             <td>{{row['mob_date']}}</td>
                             {% if rol == 1 %}
                                 {% set aux =  row['id_details'] %}
-                                <td> <a id="seg_{{aux}}" data-mob_url="{{url_for('del_seg', id=row['id_details'], back=list, id_back=row['id_user'] )}}" onclick="mob_delete('Are you sure you want to delete this segmentation? it cannot be reverted.','#seg_{{aux}}')"> <i class="fa fa-trash"> </i> </a> </td>
+                                <td> <a id="seg_{{aux}}" data-mob_url="{{url_for('del_seg', id=row['id_details'], back=list, id_back=row['id_user'], gran=0 )}}" onclick="mob_delete('Are you sure you want to delete this segmentation? it cannot be reverted.','#seg_{{aux}}')"> <i class="fa fa-trash"> </i> </a> </td>
                             
                             {% endif %}
                         </tr>

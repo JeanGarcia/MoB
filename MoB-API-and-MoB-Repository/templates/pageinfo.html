@@ -82,9 +82,17 @@
         </div>
 
         <div class="row">
-            <div class="col-xs-12 ">
+            <div class="col-xs-12 mob-leng-en">
                 <h2 class="soft-blue nospace-bot"> GRANULARITIES</h2>
                 <p class="soft-blue italic tiny " align="center"> (Click on a granularity and select the algorithm) </p>
+            </div>
+            <div class="col-xs-12 mob-leng-es">
+                <h2 class="soft-blue nospace-bot"> GRANULARIDADES</h2>
+                <p class="soft-blue italic tiny " align="center"> (Haz clic en la granularidad y selecciona el algoritmo) </p>
+            </div>
+            <div class="col-xs-12 mob-leng-fr">
+                <h2 class="soft-blue nospace-bot"> GRANULARITÉS</h2>
+                <p class="soft-blue italic tiny " align="center"> (Cliquez sur la granularité et sélectionnez l'algorithme) </p>
             </div>
         </div>
 
@@ -263,7 +271,7 @@
                                 {% if seg.mob_status == 'best' %}       
                                 <p class="mob-leng-en" hidden> <bold style="color:red">Note: </bold> This is the automatic best segmentation based on all the segmentations existing in the Ground Truth, to see all the segmentations made by the users check the "Ground Truth Segmentations's List" Above. To see the <b>{{list[a]['gt']}}</b> segmentations used to create the best segmentation on this granularity click the button below. </p>
                                 <p class="mob-leng-es" hidden> <bold style="color:red">Nota: </bold> Esta es una segmentacion automatica creada a partir de todas las segmentaciones existentes en la Ground Truth, para ver todas las segmentaciones creadas por los usuarios clickea en el botón de: "Ground Truth Segmentations's List" Arriba. Para ver las <b>{{list[a]['gt']}}</b> segmentaciones usadas en crear la mejor segmentacion en esta granularidad, haga click en el botón de abajo.  </p>
-                                <p class="mob-leng-fr" hidden> <bold style="color:red">Note: </bold> This is the automatic best segmentation based on all the segmentations existing in the Ground Truth, to see all the segmentations made by the users check the "Ground Truth Segmentations's List" Above. To see the <b>{{list[a]['gt']}}</b> segmentations used to create the best segmentation on this granularity click the button below.   </p>
+                                <p class="mob-leng-fr" hidden> <bold style="color:red">Note: </bold> C'est une segmentation automatique créée à partir de toutes les segmentations existantes dans la Vérité Terrestre, pour voir toutes les segmentations créées par les utilisateurs, cliquez sur le bouton: "Liste des Vérité des Segmentations" ci-dessus. Pour voir les segmentations <b> {{list [a] ['gt']}} </b> utilisées pour créer la meilleure segmentation dans cette granularité, cliquez sur le bouton ci-dessous.  </p>
                                 <a  class="col-xs-12 btn mob-download-button" href ="{{url_for('get_listsegpage', id=pa, gran = seg.mob_gran)}}" > 
                                     Ground Truth Of This Segmentation 
                                 </a>

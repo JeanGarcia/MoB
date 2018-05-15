@@ -28,7 +28,7 @@ app = Flask(__name__)
 
 app.config['MAIL_SERVER']='smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
-app.config['MAIL_USERNAME'] = 'mobteamnoreply@gmail.com'
+app.config['MAIL_USERNAME'] = 'myemail@gmail.com'
 app.config['MAIL_PASSWORD'] = 'password'
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
@@ -903,30 +903,34 @@ def get_seginfo(id):
         rol = session.get('user_rol', None)
         search = searchdata() # getting all data for the search bar
         error_msg = ""
+    
         cur.execute("""SELECT *
                         FROM mob_segmentation_details as d 
                         INNER JOIN general_users as u ON u.id_user = d.id_user 
                         WHERE d.id_details = %s """, 
-                        (id,))            
+                        (id,))      
+   
         if cur.rowcount > 0:
             seg_info = cur.fetchone()
             cur.execute("SELECT * FROM mob_web_page WHERE id_web_page = %s", (seg_info['id_web_page'],)) 
-
+  
             if cur.rowcount > 0 :
-                db_page= cur.fetchone() # save the web page data
+                db_page= cur.fetchone() 
                 gt = 0
                 if seg_info['mob_status'] == 'best':
                     cur.execute(""" SELECT count(id_details) 
                         FROM mob_segmentation_details
                         WHERE id_web_page= %s AND mob_gran = %s AND mob_status= %s""",
                         (seg_info['id_web_page'],seg_info['mob_gran'],'scored'))
-                    gt = fetchone()[0]
+                    gt = cur.fetchone()[0]
+   
                 return render_template('seginfo.html', page = db_page, seg= seg_info, pa= db_page['id_web_page'] , co= db_page['collection'], ca = db_page['category'], rol=rol, search=search, gt= gt )
             else:
                 return render_template('seginfo.html', error="That web page doesn't exist on our records" , rol=rol, search=search  )
         else:
             return render_template('seginfo.html', error="That segmentation couldn't be found" , rol=rol, search=search  )
-    except:
+    except Exception as e:
+        print(e)
         conn.rollback()
 
 # Collections View
@@ -1485,4 +1489,4 @@ def db_dtag(tag):
 app.secret_key = os.urandom(10) 
 
 if __name__ == '__main__':
-	app.run( debug =  False, threaded=True)
+	app.run( debug =  True, threaded=True)

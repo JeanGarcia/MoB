@@ -31,7 +31,7 @@
   { 
     "matches": ["<all_urls>"],
     "css": ["css/style_background.css", "fa/css/font-awesome.min.css"],
-    "js": ["js/script.js", "js/lib/pmanual2.js", "js/lib/bomlib.js", "js/lib/polyk.js", "js/lib/rectlib.js", "js/lib/html2canvas.min.js"]
+    "js": ["js/mob_leng.js", "js/script.js", "js/lib/pmanual2.js", "js/lib/bomlib.js", "js/lib/polyk.js", "js/lib/rectlib.js"]
     }
   ],
 

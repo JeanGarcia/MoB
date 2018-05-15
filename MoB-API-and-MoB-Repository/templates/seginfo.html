@@ -72,8 +72,8 @@
                     <br/><br/>
             </div>
             <div class="col-md-5 ">
-                <a href="{{page.url}}" title="{{page.title}}" target="_blank"> <img title="{{page.title}}" class="img-responsive" src="{{ page.capture }}" /> </a> <br/>
-                <a  class="col-xs-12 btn mob-download-button" href ="{{url_for('get_warcformat', id=pa}}" download> 
+                <a href="{{page.url}}" title="{{page.title}}" target="_blank"> <img title="{{page.title}}" class="img-responsive" src="{{ page.capture }}"/> </a> <br/>
+                <a class="col-xs-12 btn mob-download-button" href ="{{url_for('get_warcformat', id=pa)}}" download> 
                         Download Web Page (WARC Format)
                 </a> <br/><br/>
             </div>
@@ -181,7 +181,7 @@
                             {% if seg.mob_status == 'best' %}       
                             <p class="mob-leng-en" hidden> <bold style="color:red">Note: </bold> This is the automatic best segmentation based on all the segmentations existing in the Ground Truth, to see all the segmentations made by the users check the "Ground Truth Segmentations's List" Above. To see the <b>{{gt}}</b> segmentations used to create the best segmentation on this granularity click the button below. </p>
                             <p class="mob-leng-es" hidden> <bold style="color:red">Nota: </bold> Esta es una segmentacion automatica creada a partir de todas las segmentaciones existentes en la Ground Truth, para ver todas las segmentaciones creadas por los usuarios clickea en el botón de: "Ground Truth Segmentations's List" Arriba. Para ver las <b>{{gt}}</b> segmentaciones usadas en crear la mejor segmentacion en esta granularidad, haga click en el botón de abajo.  </p>
-                            <p class="mob-leng-fr" hidden> <bold style="color:red">Note: </bold> This is the automatic best segmentation based on all the segmentations existing in the Ground Truth, to see all the segmentations made by the users check the "Ground Truth Segmentations's List" Above. To see the <b>{{gt}}</b> segmentations used to create the best segmentation on this granularity click the button below.   </p>
+                            <p class="mob-leng-fr" hidden> <bold style="color:red">Note: </bold> C'est une segmentation automatique créée à partir de toutes les segmentations existantes dans la Vérité Terrestre, pour voir toutes les segmentations créées par les utilisateurs, cliquez sur le bouton: "Liste des Vérité des Segmentations" ci-dessus. Pour voir les segmentations <b> {{gt}} </b> utilisées pour créer la meilleure segmentation dans cette granularité, cliquez sur le bouton ci-dessous.  </p>
                             <a  class="col-xs-12 btn mob-download-button" href ="{{url_for('get_listsegpage', id=pa, gran = seg.mob_gran)}}" > 
                                 Ground Truth Of This Segmentation 
                             </a>

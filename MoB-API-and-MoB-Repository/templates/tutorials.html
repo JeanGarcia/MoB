@@ -1,0 +1,144 @@
+{% extends "layout.html" %}
+
+{% block title %} 
+    {% if error %}
+        ERROR FOUND
+    {% else %}
+        TUTORIALS
+    {% endif %}
+{% endblock %}
+
+
+{% block content %}
+    {% if error %}
+        <div class="row">
+            <div class="alert alert-danger"> 
+                <h3> {{error}}</h3>
+            </div>
+        </div>
+    {% else %}
+        <div class="row mob-leng-en" hidden> <!-- content grid -->
+            <div class="col-xs-12">
+                <h3> Get started!</h3>
+                <p style="font-weight: bold"> 1.- Download the MoB Extension!.
+                </p>
+                <p align="justify"> 
+                    Go to the <a href="{{url_for('downloads')}}" >DOWNLOADS </a> section and download and install the MoB Extension file. 
+                </p>
+                <p style="font-weight: bold"> 2.- Create an account!.
+                </p>
+                <p align="justify"> 
+                    Run the extension and sign up in it by filling the form, also, remember to active your account after (check your email for the activation link).
+                </p>
+                <p style="font-weight: bold"> 3.- Start the segmentation tool!.
+                </p>
+                <p align="justify"> 
+                    Run the extension and log in by filling the "log in" form, then, go to whatever Web page you want to segmentate and click the "START" button at the home page of the extension.   
+                </p>
+                <p style="font-weight: bold"> 4.- Create those blocks!.
+                </p>
+                <p align="justify"> 
+                    Is recommended to first create all the blocks that will conform the segmentation.    
+                </p>
+                <p style="font-weight: bold"> 5.- Time to tag!.
+                </p>
+                <p align="justify"> 
+                    Is recommended that after all the blocks are created and there are no issues with them (granularity problems or overlaps) you grab the "TAG" tool and tag all the blocks accordingly.    
+                </p>
+                <p style="font-weight: bold"> 6.- Send the goods!.
+                </p>
+                <p align="justify"> 
+                    Is recommended that after all the blocks are tagged and there no more errors to resolve, you send the segmentation, choose a collection and a category (if is the first time segmenting that page).  
+                </p>
+                <p style="font-weight: bold"> 7.- Great Work!.
+                </p>
+                <p align="justify"> 
+                    After the segmentation is successfully sent, you can go the the <a href="{{url_for('get_collections')}}" > COLLECTION</a> page or search on the search bar to check the Web page's info, and it's Ground Truth. 
+                </p>
+            </div>
+        </div>
+        <div class="row mob-leng-es" hidden> <!-- content grid -->
+            <div class="col-xs-12">
+                <h3> A Comenzar!</h3>
+                <p style="font-weight: bold"> 1.- Descarga la Extensión de MoB!.
+                </p>
+                <p align="justify"> 
+                    Ve a la sección de <a href="{{url_for('downloads')}}" >DOWNLOADS </a> y descarga e installa el archivo de la Extensión de MoB.
+                </p>
+                <p style="font-weight: bold"> 2.- Crea una cuenta!.
+                </p>
+                <p align="justify"> 
+                    Corre la extensión y registrate rellenante el formulario, recuerda activar tu cuenta depués (busca en tu correo el link de activación).
+                </p>
+                <p style="font-weight: bold"> 3.- Activa la herramienta de segmentación!.
+                </p>
+                <p align="justify"> 
+                    Corre la extensión e inicia sesión rellenando el formulario, después, ve a la página Web que desees segmentar y da clic al botón de "COMENZAR" en sección principal de la Extensión. 
+                </p>
+                <p style="font-weight: bold"> 4.- Crea esos bloques!.
+                </p>
+                <p align="justify"> 
+                    Es recomendado que primero crees todos los bloques que conformarán tu segmentación.
+                </p>
+                <p style="font-weight: bold"> 5.- Hora de etiquetar!.
+                </p>
+                <p align="justify"> 
+                    Es recomendado que después de que tengas todos los bloques creados y no exista ningún problema con ellos (una granularidad aceptable y que no se intersecten) pases a tomar la herramienta de "ETIQUETAR" para etiquetar todos los bloques según corresponda.
+                </p>
+                <p style="font-weight: bold"> 6.- Envíalo!.
+                </p>
+                <p align="justify"> 
+                    Es recomendado que una vez todos los bloques estén etiquetados y no existan mas errores que resolver, se envíe la segmentación, escogiendo una colección y una categoría para almacenar la página Web (en caso de ser la primera vez que se segmenta). 
+                </p>
+                <p style="font-weight: bold"> 7.- Gran trabajo!.
+                </p>
+                <p align="justify"> 
+                    Después de enviar la segmentación de forma exitosa, puede ir a <a href="{{url_for('get_collections')}}" > COLLECTION</a> o buscar en la barra de búsqueda por la página Web para revisar su información y Ground Truth. 
+                </p>
+            </div>
+        </div>
+        <div class="row mob-leng-fr" hidden> <!-- content grid -->
+            <div class="col-xs-12">
+                <h3> Pour commencer!</h3>
+                <p style="font-weight: bold"> 1.- Téléchargez l'extension MoB!
+                </p>
+                <p align="justify"> 
+                    Accédez à la section <a href="{{url_for('downloads')}}"> DOWNLOADS </a> et téléchargez et installez le fichier d'extension MoB.
+                </p>
+                <p style="font-weight: bold"> 2.- Créer un compte!
+                </p>
+                <p align="justify"> 
+                    Exécutez l'extension et remplissez le formulaire, n'oubliez pas d'activer votre compte plus tard (regardez dans votre mail pour le lien d'activation).
+                </p>
+                <p style="font-weight: bold"> 3.- Activer l'outil de segmentation!
+                </p>
+                <p align="justify"> 
+                    Exécutez l'extension et connectez-vous en remplissant le formulaire, puis allez à la page Web que vous souhaitez segmenter et cliquez sur le bouton "Démarrer" dans la section principale de l'extension.
+                </p>
+                <p style="font-weight: bold"> 4.- Créez ces blocs!
+                </p>
+                <p align="justify"> 
+                    Il est recommandé de créer d'abord tous les blocs qui composeront votre segmentation.
+                </p>
+                <p style="font-weight: bold"> 5.- Il est temps de marquer!
+                </p>
+                <p align="justify"> 
+                    Il est recommandé qu'après avoir tous les blocs créés et qu'il n'y ait pas de problème avec eux (une granularité acceptable et qu'ils ne se croisent pas) vous allez prendre l'outil "LABEL" pour étiqueter tous les blocs en conséquence.
+                </p>
+                <p style="font-weight: bold"> 6.- Envoyez-le!
+                </p>
+                <p align="justify"> 
+                    Il est recommandé qu'une fois tous les blocs étiquetés et qu'il n'y ait plus d'erreurs à résoudre, la segmentation est envoyée, en choisissant une collection et une catégorie pour stocker la page Web (dans le cas où c'est la première fois qu'elle est segmentée).
+                </p>
+                <p style="font-weight: bold"> 7.- Grand travail!.
+
+                </p>
+                <p align="justify"> 
+                    Après avoir envoyé la segmentation avec succès, vous pouvez aller à<a href="{{url_for('get_collections')}}" > COLLECTION</a> ou recherchez la barre de recherche sur la page Web pour vérifier vos informations et Ground Truth.
+                </p>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+
